@@ -3,18 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FELIPE ANDRADE | SYSTEM</title>
+    <title>FELIPE ANDRADE // CORE SYSTEM</title>
     
     <!-- Meta tags for SEO -->
-    <meta name="description" content="Felipe Andrade - Personal Portfolio. Digital Artist, Industrial Designer behind Molebots, and Streetwear Creator for Mentiramentira. Specializing in 3D weapon/mech modeling and AI content development.">
-    <meta name="keywords" content="Felipe Andrade, Molebots, Mentiramentira, 3D Modeling, Mech Design, Weapon Design, AI Content Development, Digital Artist, Brutalist Web Design">
-    <meta name="author" content="Felipe Andrade">
-    
-    <!-- Open Graph / Social Media -->
-    <meta property="og:title" content="FELIPE ANDRADE | SYSTEM">
-    <meta property="og:description" content="Digital Artist & Designer behind Molebots and Mentiramentira. Fusing 3D modeling, weapon/mech concepts, and AI workflows.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://felipeandrade.xyz">
+    <meta name="description" content="Felipe Andrade - Creative System Dashboard. Digital art, industrial design, and AI content integrations.">
+    <meta name="keywords" content="Felipe Andrade, Brutalist, Cyberpunk, 3D Design, Streetwear, AI Content, WebGL, CSS 3D">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,402 +18,278 @@
 </head>
 <body class="system-theme">
 
-    <!-- Faint scanline & grid effects for blueprint aesthetic -->
-    <div class="grid-overlay"></div>
-    <div class="scanline"></div>
-
-    <!-- Header Navigation -->
-    <header class="sys-header">
-        <div class="sys-logo">
-            <span class="status-dot blink"></span>
-            <span class="logo-text">F_ANDRADE // SYS_v1.0</span>
-        </div>
-        <nav class="sys-nav">
-            <a href="#molebots" class="nav-link"><span class="nav-num">01_</span>MOLEBOTS</a>
-            <a href="#viewport" class="nav-link"><span class="nav-num">02_</span>3D_SCULPT</a>
-            <a href="#apparel" class="nav-link"><span class="nav-num">03_</span>APPAREL</a>
-            <a href="#ai-dev" class="nav-link"><span class="nav-num">04_</span>AI_LAB</a>
-            <a href="#contact" class="nav-link"><span class="nav-num">05_</span>CONTACT</a>
-        </nav>
-        <div class="sys-time-status">
-            <span class="terminal-text">SYS_ONLINE // 2026</span>
-        </div>
-    </header>
-
-    <!-- Main Hero -->
-    <section class="hero-section">
-        <div class="hero-left">
-            <h1 class="glitch-title" data-text="FELIPE ANDRADE">FELIPE ANDRADE</h1>
-            <p class="subtitle">// DIGITAL ARTIST // DESIGNER // AI INTEGRATOR</p>
-            <div class="hero-tags">
-                <span class="tag">#3D_SCULPTING</span>
-                <span class="tag">#WEAPON_DESIGN</span>
-                <span class="tag">#MECH_CAD</span>
-                <span class="tag">#STREETWEAR</span>
-                <span class="tag">#AI_WORKFLOWS</span>
-            </div>
-        </div>
-        <div class="hero-right">
-            <div class="terminal-card">
-                <div class="terminal-header">
-                    <span class="terminal-dot"></span>
-                    <span class="terminal-dot"></span>
-                    <span class="terminal-dot"></span>
-                    <span class="terminal-title">system_diagnostics.sh</span>
-                </div>
-                <div class="terminal-body" id="diag-terminal">
-                    <p class="term-line"><span class="term-prompt">&gt;</span> initialize_core_modules...</p>
-                    <p class="term-line green">[OK] molebots.bin loaded successfully (VIRAL_COUNT: >10M)</p>
-                    <p class="term-line green">[OK] mentiramentira.dop compiled</p>
-                    <p class="term-line green">[OK] weapons_mech_sculpting.obj parsed (2.4M polys)</p>
-                    <p class="term-line green">[OK] ai_generation_engine active</p>
-                    <p class="term-line"><span class="term-prompt">&gt;</span> <span class="blink">_</span></p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Project Ticker -->
-    <div class="ticker-wrap">
-        <div class="ticker">
-            <span class="ticker-item">MOLEBOTS: 3D PRINTED WEED GRINDERS</span>
-            <span class="ticker-item">//</span>
-            <span class="ticker-item">MENTIRAMENTIRA STREETWEAR BRAND</span>
-            <span class="ticker-item">//</span>
-            <span class="ticker-item">WEAPON & MECH DESIGN SPECIALIST</span>
-            <span class="ticker-item">//</span>
-            <span class="ticker-item">AI CONTENT ENGINE</span>
-            <span class="ticker-item">//</span>
-            <span class="ticker-item">VIRAL GEOMETRY</span>
-            <span class="ticker-item">//</span>
-        </div>
+    <!-- Custom Tech Cursor -->
+    <div class="custom-cursor" id="custom-cursor">
+        <div class="cursor-cross"></div>
+        <div class="cursor-ring"></div>
+        <div class="cursor-label" id="cursor-label">SYS_IDLE</div>
     </div>
 
-    <!-- MAIN CONTAINER -->
-    <main class="content-container">
+    <!-- Mouse Ambient Light Layer -->
+    <div class="mouse-glow-container" id="mouse-glow"></div>
 
-        <!-- 01_MOLEBOTS -->
-        <section id="molebots" class="project-section">
-            <div class="section-header">
-                <h2><span class="header-num">01_</span>MOLEBOTS <span class="accent-text">[THE_WARHORSE]</span></h2>
-                <div class="header-bar"></div>
+    <!-- Screen Overlays for CRT and Blueprint feel -->
+    <div class="grid-overlay"></div>
+    <div class="scanline-overlay"></div>
+    <div class="screen-flicker"></div>
+    <div class="vignette"></div>
+
+    <!-- Live Telemetry Status Header -->
+    <div class="telemetry-bar">
+        <div class="tel-item"><span class="tel-tag green">STATUS:</span> <span class="blink">SYSTEM_ACTIVE</span></div>
+        <div class="tel-item"><span class="tel-tag orange">NODE:</span> PORKBUN_CONNECT // SECURE</div>
+        <div class="tel-item"><span class="tel-tag blue">COORDS:</span> <span id="tel-coords">X: 000 / Y: 000</span></div>
+        <div class="tel-item"><span class="tel-tag green">UPTIME:</span> <span id="tel-uptime">00:00:00</span></div>
+    </div>
+
+    <!-- Main Navigation Header -->
+    <header class="sys-header">
+        <div class="logo-container">
+            <span class="status-indicator-dot"></span>
+            <span class="logo-text glitch" data-text="F_ANDRADE // CORE_NODE">F_ANDRADE // CORE_NODE</span>
+        </div>
+        <nav class="sys-nav">
+            <a href="#dashboard" class="nav-link active"><span class="nav-num">01_</span>DASHBOARD</a>
+            <a href="#control" class="nav-link"><span class="nav-num">02_</span>TERMINAL</a>
+            <a href="#about" class="nav-link"><span class="nav-num">03_</span>COORDINATES</a>
+        </nav>
+    </header>
+
+    <!-- Main Grid Dashboard Wrapper -->
+    <main class="dashboard-wrapper" id="dashboard">
+        
+        <!-- Welcome Banner Card -->
+        <div class="dash-card banner-card">
+            <div class="tech-lines"></div>
+            <div class="cyber-bracket top-left"></div>
+            <div class="cyber-bracket top-right"></div>
+            <div class="cyber-bracket bottom-left"></div>
+            <div class="cyber-bracket bottom-right"></div>
+            
+            <div class="card-tag">SYSTEM_INITIALIZATION</div>
+            <h1 class="glitch-title" data-text="FELIPE ANDRADE">FELIPE ANDRADE</h1>
+            <p class="subtitle">// DIGITAL ARTIST // DESIGNER // AI INTEGRATOR</p>
+            <div class="tech-stats-row">
+                <div class="stat-box">
+                    <span class="stat-num" id="stat-mem">98.4%</span>
+                    <span class="stat-label">MEM_CAPACITY</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-num" id="stat-cpu">14.2%</span>
+                    <span class="stat-label">CPU_CORE_LOAD</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-num">2026.06</span>
+                    <span class="stat-label">BUILD_VER</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3D CSS Cube Viewport Card (No images, pure interactive 3D CSS shape!) -->
+        <div class="dash-card vp-card card-interactive">
+            <div class="cyber-bracket top-left"></div>
+            <div class="cyber-bracket top-right"></div>
+            <div class="cyber-bracket bottom-left"></div>
+            <div class="cyber-bracket bottom-right"></div>
+            
+            <div class="card-header">
+                <span class="card-tag orange-text">MODULE_01 // 3D_SCULPT_SIM</span>
+                <span class="card-status green-glow">ACTIVE</span>
             </div>
             
-            <div class="project-grid">
-                <div class="project-media">
-                    <div class="viewport-frame">
-                        <div class="viewport-corner top-left"></div>
-                        <div class="viewport-corner top-right"></div>
-                        <div class="viewport-corner bottom-left"></div>
-                        <div class="viewport-corner bottom-right"></div>
-                        <div class="viewport-overlay-text">CAMERA: CAM_01 // RES: 4K // SCALE: 1:1</div>
-                        <img src="assets/molebot.png" alt="Molebots 3D printed weed grinder designed by Felipe Andrade" class="viewport-image">
+            <!-- 3D Transform Area -->
+            <div class="vp-viewport-container" id="3d-container">
+                <div class="vp-grid-floor"></div>
+                <div class="vp-axis">
+                    <span class="axis-line x-axis"></span>
+                    <span class="axis-line y-axis"></span>
+                    <span class="axis-line z-axis"></span>
+                </div>
+                
+                <!-- CSS 3D Cube -->
+                <div class="css-3d-cube" id="cube-3d">
+                    <div class="cube-face face-front">01</div>
+                    <div class="cube-face face-back">02</div>
+                    <div class="cube-face face-left">03</div>
+                    <div class="cube-face face-right">04</div>
+                    <div class="cube-face face-top">05</div>
+                    <div class="cube-face face-bottom">06</div>
+                </div>
+                
+                <div class="vp-overlay-instruct">[ DRAG TO ROTATE 3D WIREFRAME ]</div>
+            </div>
+
+            <div class="card-footer">
+                <span class="footer-lbl">RENDER_SYS: CSS_3D_ENGINE</span>
+                <span class="footer-lbl" id="vp-rot-display">ROT: X: 0° / Y: 0°</span>
+            </div>
+        </div>
+
+        <!-- Molebot Spec Card (Dial gauges, specs, progress bars) -->
+        <div class="dash-card spec-card card-interactive">
+            <div class="cyber-bracket top-left"></div>
+            <div class="cyber-bracket top-right"></div>
+            <div class="cyber-bracket bottom-left"></div>
+            <div class="cyber-bracket bottom-right"></div>
+            
+            <div class="card-header">
+                <span class="card-tag">MODULE_02 // MOLEBOTS_TELEMETRY</span>
+                <span class="card-status orange-glow">MONITORING</span>
+            </div>
+
+            <div class="spec-card-body">
+                <div class="telemetry-gauge-container">
+                    <div class="gauge-ring">
+                        <div class="gauge-spinner" id="gauge-spin"></div>
+                        <div class="gauge-value" id="gauge-val">65.0</div>
+                    </div>
+                    <div class="gauge-info">
+                        <div class="info-title">GRINDER_RPM</div>
+                        <div class="info-status green">OPTIMAL</div>
                     </div>
                 </div>
-                <div class="project-info">
-                    <div class="project-badge">FLAGSHIP MODULE</div>
-                    <h3 class="project-title">MOLEBOTS GRINDERS</h3>
-                    <p class="project-desc">
-                        A viral direct-to-consumer business offering custom 3D printed weed grinders. Designed entirely by me, these grinders went viral across TikTok and Instagram due to their aggressive geometric aesthetics, modular interlocking teeth, and premium mechanical tolerances. 
-                    </p>
-                    <p class="project-desc">
-                        Every Molebot is a fusion of computational design and additive manufacturing, challenging the convention of traditional cylindrical accessory products.
-                    </p>
 
-                    <div class="specs-table">
-                        <div class="spec-row">
-                            <span class="spec-label">MATERIAL_COMPOSITION</span>
-                            <span class="spec-value">PLA-PRO / PETG / TPU BLENDS</span>
+                <div class="progress-bar-stack">
+                    <div class="progress-item">
+                        <div class="progress-labels">
+                            <span>EXTRUSION_FLOW</span>
+                            <span id="flow-val">96.8%</span>
                         </div>
-                        <div class="spec-row">
-                            <span class="spec-label">FABRICATION_METHOD</span>
-                            <span class="spec-value">FDM 3D PRINTING (MULTI-EXTRUSION)</span>
-                        </div>
-                        <div class="spec-row">
-                            <span class="spec-label">GEOMETRIC_PROFILE</span>
-                            <span class="spec-value">INTERLOCKING MOLE-TOOTH CONFIGURATION</span>
-                        </div>
-                        <div class="spec-row">
-                            <span class="spec-label">STATUS</span>
-                            <span class="spec-value green-glow">VIRAL // PRODUCTION ACTIVE</span>
-                        </div>
+                        <div class="progress-bar"><div class="progress-fill" id="flow-fill" style="width: 96.8%;"></div></div>
                     </div>
+                    <div class="progress-item">
+                        <div class="progress-labels">
+                            <span>LAYER_RESOLUTION</span>
+                            <span>0.12MM</span>
+                        </div>
+                        <div class="progress-bar"><div class="progress-fill orange" style="width: 85%;"></div></div>
+                    </div>
+                </div>
 
-                    <div class="project-actions">
-                        <a href="https://instagram.com" target="_blank" rel="noopener" class="btn btn-primary">
-                            <span>EXPLORE ON SOCIALS</span>
-                            <svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-                        </a>
+                <ul class="telemetry-list">
+                    <li><span>FAB_STATUS:</span> <span class="green">PRINTING</span></li>
+                    <li><span>FILAMENT:</span> <span>PLA-PRO // GLOW_GREEN</span></li>
+                    <li><span>TARGET:</span> <span>MOLEBOTS_V1.2</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Apparel Drop Code Grid Card -->
+        <div class="dash-card apparel-card card-interactive">
+            <div class="cyber-bracket top-left"></div>
+            <div class="cyber-bracket top-right"></div>
+            <div class="cyber-bracket bottom-left"></div>
+            <div class="cyber-bracket bottom-right"></div>
+            
+            <div class="card-header">
+                <span class="card-tag blue-text">MODULE_03 // MENTIRAMENTIRA</span>
+                <span class="card-status font-bold">RELEASE_04</span>
+            </div>
+
+            <div class="apparel-card-body">
+                <div class="lookbook-vector-box">
+                    <div class="vector-crosshairs"></div>
+                    <div class="vector-circle animate-pulse"></div>
+                    <div class="vector-scan-line"></div>
+                    <div class="vector-text">MM_SYS_DROP.bin</div>
+                </div>
+
+                <div class="catalog-grid">
+                    <div class="catalog-row header-row">
+                        <span>ITEM_ID</span><span>DESC</span><span>STOCK</span>
+                    </div>
+                    <div class="catalog-row">
+                        <span>MM_01</span><span>OVER_HOODIE</span><span class="red-text">SOLD_OUT</span>
+                    </div>
+                    <div class="catalog-row">
+                        <span>MM_02</span><span>CARGO_PANT</span><span class="green-glow">08_LEFT</span>
+                    </div>
+                    <div class="catalog-row">
+                        <span>MM_03</span><span>GRAPHIC_TEE</span><span class="green-glow">15_LEFT</span>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <!-- 02_3D_SCULPT -->
-        <section id="viewport" class="project-section">
-            <div class="section-header">
-                <h2><span class="header-num">02_</span>WEAPON_MECH_SCULPT <span class="accent-text">[3D_CAD]</span></h2>
-                <div class="header-bar"></div>
+        <!-- Interactive AI Prompt Terminal Card -->
+        <div class="dash-card terminal-card" id="control">
+            <div class="cyber-bracket top-left"></div>
+            <div class="cyber-bracket top-right"></div>
+            <div class="cyber-bracket bottom-left"></div>
+            <div class="cyber-bracket bottom-right"></div>
+            
+            <div class="card-header">
+                <span class="card-tag">MODULE_04 // AI_CONTENT_TERMINAL</span>
+                <span class="card-status blink">CONNECTING</span>
             </div>
 
-            <div class="project-grid reverse">
-                <div class="project-media">
-                    <!-- ZBrush Viewport Simulation -->
-                    <div class="zbrush-viewport" id="viewport-container">
-                        <!-- Viewport Header -->
-                        <div class="vp-header">
-                            <div class="vp-menu">
-                                <span>File</span><span>Edit</span><span>Render</span><span>Viewport</span>
-                            </div>
-                            <div class="vp-stats">
-                                <span>FPS: 60.0</span>
-                                <span>Polys: 2,450,112</span>
-                                <span>Verts: 1,225,904</span>
-                            </div>
-                        </div>
-
-                        <!-- Sidebar Tools -->
-                        <div class="vp-sidebar">
-                            <button class="vp-tool-btn active" id="tool-shaded" title="Shaded View">
-                                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
-                            </button>
-                            <button class="vp-tool-btn" id="tool-wireframe" title="Toggle Wireframe">
-                                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
-                            </button>
-                            <button class="vp-tool-btn" id="tool-grid" title="Toggle Grid Overlay">
-                                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line><line x1="15" y1="3" x2="15" y2="21"></line><line x1="3" y1="9" x2="21" y2="9"></line><line x1="3" y1="15" x2="21" y2="15"></line></svg>
-                            </button>
-                            <button class="vp-tool-btn" id="tool-rotate" title="Auto-Rotate View">
-                                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path></svg>
-                            </button>
-                        </div>
-
-                        <!-- 3D Canvas Workspace -->
-                        <div class="vp-canvas">
-                            <div class="vp-grid-lines" id="viewport-grid"></div>
-                            <div class="vp-axis-indicator">
-                                <span class="axis-x">X</span>
-                                <span class="axis-y">Y</span>
-                                <span class="axis-z">Z</span>
-                            </div>
-                            <img src="assets/mech.png" alt="Futuristic combat mech and sci-fi weapon 3D render model" class="vp-image" id="viewport-img">
-                            <div class="vp-wireframe-overlay" id="wireframe-effect"></div>
-                        </div>
-
-                        <!-- Viewport Status Footer -->
-                        <div class="vp-footer">
-                            <span>MODEL: XM-82_MECH_SYSTEM.obj</span>
-                            <span class="green">[RENDERER_ACTIVE]</span>
-                        </div>
+            <div class="term-body" id="term-console">
+                <div class="term-log-line green-text">[INITIALIZING AI CONTENT AGENT PIPELINE...]</div>
+                <div class="term-log-line">[SYSTEM] READY TO DEPLOY SYNTHETIC WRITING AGENTS.</div>
+                
+                <div class="term-input-line">
+                    <span class="prompt-sign">&gt;</span>
+                    <span id="term-typewriter"></span>
+                    <span class="term-cursor blink">_</span>
+                </div>
+                
+                <div class="term-compiling hidden" id="term-compiling">
+                    <div class="term-progress-outer">
+                        <div class="term-progress-inner" id="term-bar-fill"></div>
                     </div>
+                    <div class="term-log-line yellow-text" id="term-compile-status">[AGENTS RUNNING] COMPILING BRAND ESSENCE...</div>
                 </div>
 
-                <div class="project-info">
-                    <div class="project-badge">3D ART & SCULPTING</div>
-                    <h3 class="project-title">HARD SURFACE WEAPONS & MECHS</h3>
-                    <p class="project-desc">
-                        My primary artistic core lies in hard-surface asset creation. I model, sculpt, and animate intricate machinery, heavy mechs, and weapon concepts with a heavy focus on functional mechanical logic.
-                    </p>
-                    <p class="project-desc">
-                        Every panel, piston, exhaust vent, and sight line is designed to look mechanically plausible, creating highly immersive models suited for AAA gaming or cinematic VFX.
-                    </p>
-
-                    <div class="specs-table">
-                        <div class="spec-row">
-                            <span class="spec-label">PIPELINE_SOFTWARE</span>
-                            <span class="spec-value">BLENDER / ZBRUSH / SUBSTANCE PAINTER</span>
-                        </div>
-                        <div class="spec-row">
-                            <span class="spec-label">STYLE_CLASSIFICATION</span>
-                            <span class="spec-value">CYBERPUNK / MILITARY INDUSTRIAL / INDUSTRIAL BRUTALISM</span>
-                        </div>
-                        <div class="spec-row">
-                            <span class="spec-label">ASSET_OUTPUTS</span>
-                            <span class="spec-value">HIGH/LOW POLY MODELS, RIGGED ANIMATION ASSETS</span>
-                        </div>
+                <div class="term-results hidden" id="term-results">
+                    <div class="result-block">
+                        "UNCONVENTIONAL FORM. MECHANICAL TRUTH. APPAREL AND GRINDERS AREN'T JUST PRODUCTS, THEY'RE SYNTHETIC MEDIA STATIONS FOR BRANDS IN THE MATRIX."
                     </div>
-
-                    <div class="project-actions">
-                        <button class="btn btn-secondary" onclick="alert('3D Gallery Portfolio currently compiling...')">
-                            <span>VIEW FULL GALLERY</span>
-                        </button>
-                    </div>
+                    <button class="btn btn-tiny" id="btn-reboot">REBOOT_PIPELINE</button>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <!-- 03_APPAREL -->
-        <section id="apparel" class="project-section">
-            <div class="section-header">
-                <h2><span class="header-num">03_</span>APPAREL <span class="accent-text">[MENTIRAMENTIRA]</span></h2>
-                <div class="header-bar"></div>
+        <!-- Encrypted Message / Contact Portal -->
+        <div class="dash-card contact-card" id="about">
+            <div class="cyber-bracket top-left"></div>
+            <div class="cyber-bracket top-right"></div>
+            <div class="cyber-bracket bottom-left"></div>
+            <div class="cyber-bracket bottom-right"></div>
+            
+            <div class="card-header">
+                <span class="card-tag">MODULE_05 // DIRECT_COMMUNICATIONS</span>
+                <span class="card-status">SECURED</span>
             </div>
 
-            <div class="project-grid">
-                <div class="project-media">
-                    <div class="apparel-display">
-                        <div class="glitch-scanner"></div>
-                        <img src="assets/apparel.png" alt="Streetwear garment design from Mentiramentira.com clothing brand by Felipe Andrade" class="apparel-img">
-                        <div class="apparel-tag-overlay">REF: MM_SYS_04 // APPAREL_LAB</div>
+            <form class="secure-form" id="secure-contact">
+                <div class="form-row">
+                    <div class="input-wrap">
+                        <label>SENDER_ID</label>
+                        <input type="text" id="sender-id" required placeholder="E.G., BRAND_X">
+                    </div>
+                    <div class="input-wrap">
+                        <label>SENDER_NODE_EMAIL</label>
+                        <input type="email" id="sender-email" required placeholder="E.G., NAME@DOMAIN.COM">
                     </div>
                 </div>
-
-                <div class="project-info">
-                    <div class="project-badge">FASHION BRAND</div>
-                    <h3 class="project-title">MENTIRAMENTIRA</h3>
-                    <p class="project-desc">
-                        My secondary major endeavor is **Mentiramentira** (mentiramentira.com), a streetwear brand that bridges digital subversion and textile design.
-                    </p>
-                    <p class="project-desc">
-                        The brand uses brutalist design layouts, anti-design typography, and high-quality heavy-weight fabrics. It operates in curated seasonal drops, emphasizing exclusivity and physical tangibility of digital graphic motifs.
-                    </p>
-
-                    <div class="catalog-list">
-                        <h4>CURRENT RELEASES:</h4>
-                        <div class="catalog-item">
-                            <span class="cat-num">01 //</span>
-                            <span class="cat-name">ANOMALY OVERSIZED HOODIE</span>
-                            <span class="cat-status sold-out">SOLD OUT</span>
-                        </div>
-                        <div class="catalog-item">
-                            <span class="cat-num">02 //</span>
-                            <span class="cat-name">PARADOX CARGO PANTS</span>
-                            <span class="cat-status active">ACTIVE</span>
-                        </div>
-                        <div class="catalog-item">
-                            <span class="cat-num">03 //</span>
-                            <span class="cat-name">MENTIRA HEAVY GRAPHIC TEE</span>
-                            <span class="cat-status active">ACTIVE</span>
-                        </div>
-                    </div>
-
-                    <div class="project-actions">
-                        <a href="https://mentiramentira.com" target="_blank" rel="noopener" class="btn btn-primary">
-                            <span>GO TO MENTIRAMENTIRA.COM</span>
-                            <svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-                        </a>
-                    </div>
+                <div class="input-wrap">
+                    <label>PAYLOAD_BRIEF</label>
+                    <textarea id="payload" required rows="4" placeholder="DECRYPT YOUR ENCRYPTED MSG HERE..."></textarea>
                 </div>
-            </div>
-        </section>
-
-        <!-- 04_AI_DEV & CONTACT -->
-        <section id="ai-dev" class="project-section">
-            <div class="section-header">
-                <h2><span class="header-num">04_</span>AI_CONTENT_LAB <span class="accent-text">[SYSTEM_INTEGRATION]</span></h2>
-                <div class="header-bar"></div>
-            </div>
-
-            <div class="project-grid reverse">
-                <div class="project-media">
-                    <!-- Interactive Terminal for AI Content Simulation -->
-                    <div class="ai-terminal">
-                        <div class="term-header">
-                            <span class="term-status-badge">AI_AGENT_PROMPT_ENGINE</span>
-                            <span class="term-status-ready">READY</span>
-                        </div>
-                        <div class="term-body" id="ai-term-body">
-                            <p class="term-line"><span class="term-prompt">&gt;</span> <span class="term-user-input" id="typewriter-text"></span><span class="blink cursor" id="typewriter-cursor">_</span></p>
-                            <div id="ai-response-container" class="hidden">
-                                <p class="term-line yellow">[AGENT_1] analyzing brand target...</p>
-                                <p class="term-line yellow">[AGENT_2] generating visual concepts: hyper-brutalist render, concrete textures, high contrast neon framing.</p>
-                                <p class="term-line green">[SUCCESS] brand content system compiled. Output below:</p>
-                                <div class="term-output-block">
-                                    "Break rules. Blend raw industrial geometries with digital luxury. 3D printing is the medium, mechanical function is the message."
-                                </div>
-                                <button class="btn btn-tiny" id="btn-re-run">RE-RUN CORE PIPELINE</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-info">
-                    <div class="project-badge">EMERGING MEDIA</div>
-                    <h3 class="project-title">AI WORKFLOWS FOR BRANDS</h3>
-                    <p class="project-desc">
-                        As a multidisciplinary creator, I implement AI content systems to optimize visual production, brand storytelling, and synthetic media pipelines. 
-                    </p>
-                    <p class="project-desc">
-                        I develop customized workflows for forward-thinking brands and entrepreneurs, automating high-fidelity art creation, video assets, and interactive systems that demand attention.
-                    </p>
-
-                    <div class="specs-table">
-                        <div class="spec-row">
-                            <span class="spec-label">INTEGRATED_MODELS</span>
-                            <span class="spec-value">STABLE DIFFUSION / MIDJOURNEY / LLM-AGENTS</span>
-                        </div>
-                        <div class="spec-row">
-                            <span class="spec-label">SERVICES</span>
-                            <span class="spec-value">VISUAL PIPELINE AUTOMATION, GENERATIVE STORYBOARDS, SYNTHETIC BRAND ASSETS</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 05_CONTACT -->
-        <section id="contact" class="project-section">
-            <div class="section-header">
-                <h2><span class="header-num">05_</span>ESTABLISH_COMMUNICATION <span class="accent-text">[CONTACT]</span></h2>
-                <div class="header-bar"></div>
-            </div>
-
-            <div class="contact-layout">
-                <div class="contact-form-container">
-                    <div class="terminal-header">
-                        <span class="terminal-title">SEND_TRANSMISSION.sh</span>
-                    </div>
-                    <form class="transmission-form" id="contact-form">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="name">SENDER_NAME_ID*</label>
-                                <input type="text" id="name" name="name" required placeholder="E.G. ENTREPRENEUR_01">
-                            </div>
-                            <div class="form-group">
-                                <label for="email">SENDER_EMAIL*</label>
-                                <input type="email" id="email" name="email" required placeholder="E.G. CONTACT@DOMAIN.COM">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">PROJECT_BRIEF_DATA (SCULPT / BRAND / AI)*</label>
-                            <textarea id="message" name="message" required rows="5" placeholder="DESCRIBE YOUR GOAL OR PROJECT..."></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block">
-                            <span>EXECUTE TRANSMISSION</span>
-                            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                        </button>
-                        <div id="form-status" class="form-status-msg hidden"></div>
-                    </form>
-                </div>
-
-                <div class="contact-sidebar">
-                    <div class="contact-card">
-                        <h4>DIRECT_COORDINATES:</h4>
-                        <ul class="coordinates-list">
-                            <li><span class="coord-label">EMAIL:</span> <a href="mailto:felipe@felipeandrade.xyz">felipe@felipeandrade.xyz</a></li>
-                            <li><span class="coord-label">INSTAGRAM:</span> <a href="https://instagram.com" target="_blank" rel="noopener">@felipeandrade</a></li>
-                            <li><span class="coord-label">TIKTOK:</span> <a href="https://tiktok.com" target="_blank" rel="noopener">@felipeandrade</a></li>
-                            <li><span class="coord-label">LOCATION:</span> <span>SYS_LAT_LON // GLOBAL</span></li>
-                        </ul>
-                    </div>
-                    <div class="cyber-warning">
-                        <span class="warning-icon">!</span>
-                        <p class="warning-text">ALL TRANSMISSIONS ARE ENCRYPTED AND LOGGED. OUTGOING RESPONSES GENERALLY RESOLVE WITHIN 24-48 HOURS.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+                <button type="submit" class="btn btn-primary btn-block glow-btn">
+                    <span>EXECUTE_TRANSMISSION</span>
+                </button>
+                <div id="tx-status" class="tx-status hidden"></div>
+            </form>
+        </div>
 
     </main>
 
-    <!-- Footer -->
+    <!-- System Footer -->
     <footer class="sys-footer">
-        <div class="footer-left">
-            <p>© FELIPE ANDRADE // 2026 // SYSTEM ONLINE</p>
-        </div>
-        <div class="footer-right">
-            <p>DESIGN: INDUSTRIAL-BRUTALIST // BUILD: ANTIGRAVITY</p>
-        </div>
+        <div class="footer-item">CORE_SYS: ONLINE // 2026</div>
+        <div class="footer-item">LOC: LATITUDE: 40.7128° N, LONGITUDE: 74.0060° W</div>
+        <div class="footer-item">HOSTING: PORKBUN_CONNECT // DEPLOY: GITHUB_PAGES</div>
     </footer>
 
     <script src="app.js"></script>
