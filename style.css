@@ -162,7 +162,7 @@ html, body {
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
     width: 90%;
-    max-width: 800px;
+    max-width: 850px;
     z-index: 2;
     text-align: center;
     transition: opacity 0.5s ease;
@@ -170,18 +170,50 @@ html, body {
 
 .ascii-container {
     margin-bottom: 2.5rem;
-    overflow-x: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.ascii-wrapper {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    padding: 10px 0;
 }
 
 .ascii-logo {
-    font-size: min(0.9vw, 9px);
+    font-size: min(0.8vw, 8px);
     line-height: 1.1;
     color: var(--text-primary);
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
-    text-align: center;
+    text-shadow: 0 0 12px rgba(0, 240, 255, 0.4);
+    text-align: left;
     margin: 0;
     font-family: monospace;
     white-space: pre;
+    animation: reveal-down 2.5s linear forwards;
+    clip-path: inset(0 0 100% 0); /* starts fully clipped */
+}
+
+/* Scanning laser line */
+.loader-laser {
+    position: absolute;
+    left: 0; width: 100%; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+    box-shadow: 0 0 10px var(--accent-cyan), 0 0 20px var(--accent-cyan);
+    z-index: 5;
+    opacity: 0;
+    animation: laser-sweep 2.5s linear forwards;
+}
+
+@keyframes reveal-down {
+    0% { clip-path: inset(0 0 100% 0); }
+    100% { clip-path: inset(0 0 0 0); }
+}
+
+@keyframes laser-sweep {
+    0% { top: 0%; opacity: 1; }
+    90% { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
 }
 
 .loader-telemetry {
@@ -1148,7 +1180,7 @@ html, body {
     .telemetry-bar {
         flex-direction: column;
         align-items: center;
-        gap: 0.2rem;
+        gap: 0.2;
         padding: 0.4rem;
         height: auto;
     }

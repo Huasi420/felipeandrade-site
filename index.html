@@ -18,28 +18,36 @@
 </head>
 <body class="glassy-theme">
 
-    <!-- INTRO LOADING SCREEN (Slices open horizontally, only displays ASCII logo here) -->
+    <!-- INTRO LOADING SCREEN (Slices open horizontally, with character reveal laser sweep) -->
     <div id="loader-screen" class="loader-wrapper">
         <div class="loader-slice top-slice"></div>
         <div class="loader-slice bottom-slice"></div>
         <div class="loader-content">
             <div class="ascii-container">
+                <div class="ascii-wrapper">
+                    <!-- Laser Line Sweep Indicator -->
+                    <div class="loader-laser"></div>
 <pre class="ascii-logo">
-███████╗███████╗██╗     ██╗██████╗ ███████╗    ███████╗███╗   ██╗██████╗ ██████╗  █████╗ ██████╗ ███████╗
-██╔════╝██╔════╝██║     ██║██╔══██╗██╔════╝    ██╔════╝████╗  ██║██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔════╝
-█████╗  █████╗  ██║     ██║██████╔╝█████╗      ███████╗██╔██╗ ██║██║  ██║██████╔╝███████║██║  ██║█████╗  
-██╔══╝  ██╔══╝  ██║     ██║██╔═══╝ ██╔══╝      ╚════██║██║╚██╗██║██║  ██║██╔══██╗██╔══██║██║  ██║██╔══╝  
-██║     ███████╗███████╗██║██║     ███████╗    ███████║██║ ╚████║██████╔╝██║  ██║██║  ██║██████╔╝███████╗
-╚═╝     ╚══════╝╚══════╝╚═╝╚═╝     ╚══════╝    ╚══════╝╚═╝  ╚═══╝╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ ╚══════╝
+  █████▒▓█████  ██▓     ██▓ ██▓███  ▓█████     ▄▄▄       ███▄    █ ▓█████▄  ██▀███   ▄▄▄      ▓█████▄ ▓█████ 
+▓██   ▒ ▓█   ▀ ▓██▒    ▓██▒▓██░  ██▒▓█   ▀    ▒████▄     ██ ▀█   █ ▒██▀ ██▌▓██ ▒ ██▒▒████▄    ▒██▀ ██▌▓█   ▀ 
+▒████ ░ ▒███   ▒██░    ▒██▒▓██░ ██▓▒▒███      ▒██  ▀█▄  ▓██  ▀█ ██▒░██   █▌▓██ ░▄█ ▒▒██  ▀█▄  ░██   █▌▒███   
+░▓█▒  ░ ▒▓█  ▄ ▒██░    ░██░▒██▄█▓▒ ▒▒▓█  ▄    ░██▄▄▄▄██ ▓██▒  ▐▌██▒░▓█▄   ▌▒██▀▀█▄  ░██▄▄▄▄██ ░▓█▄   ▌▒▓█  ▄ 
+░▒█░    ░▒████▒░██████▒░██░▒██▒ ░  ░░▒████▒    ▓█   ▓██▒▒██░   ▓██░░▒████▓ ░██▓ ▒██▒ ▓█   ▓██▒░▒████▓ ░▒████▒
+ ▒ ░    ░░ ▒░ ░░ ▒░▓  ░░▓  ▒▓▒░ ░  ░░░ ▒░ ░    ▒▒   ▓▒█░░ ▒░   ▒ ▒  ▒▒▓  ▒ ░ ▒▓ ░▒▓░ ▒▒   ▓▒█░ ▒▒▓  ▒ ░░ ▒░ ░
+ ░       ░ ░  ░░ ░ ▒  ░ ▒ ░░▒ ░      ░ ░  ░     ▒   ▒▒ ░░ ░░   ░ ▒░ ░ ▒  ▒   ░▒ ░ ▒░  ▒   ▒▒ ░ ░ ▒  ▒  ░ ░  ░
+ ░ ░       ░     ░ ░    ▒ ░░░          ░        ░   ▒      ░   ░ ░  ░ ░  ░   ░░   ░   ░   ▒    ░ ░  ░    ░   
+           ░  ░    ░  ░ ░              ░  ░         ░  ░         ░    ░       ░           ░  ░   ░       ░  ░
+                                                                    ░                          ░              
 </pre>
+                </div>
             </div>
             <div class="loader-telemetry">
                 <div class="loader-line">
-                    <span class="loader-status">LOADING SYSTEM MODULES</span>
+                    <span class="loader-status">REVEALING CORE PROTOCOL</span>
                     <span id="load-pct" class="glow-text">00%</span>
                 </div>
                 <div class="loader-progress-bar"><div class="loader-progress-fill" id="load-fill"></div></div>
-                <div class="loader-status-msg" id="load-msg">INITIALIZING GRAPHICS PIPELINE...</div>
+                <div class="loader-status-msg" id="load-msg">PARSING GLITCH MATRIX DATA...</div>
             </div>
         </div>
     </div>
