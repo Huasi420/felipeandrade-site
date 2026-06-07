@@ -3,11 +3,20 @@
    ========================================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
+    
+    // Safety Net: Force-clear loader after 3.5s in case of any runtime glitches
+    const loaderScreen = document.getElementById("loader-screen");
+    const safetyTimeout = setTimeout(() => {
+        if (loaderScreen && !loaderScreen.classList.contains("loaded")) {
+            console.warn("Loader safety bypass triggered.");
+            loaderScreen.classList.add("loaded");
+            setTimeout(() => { loaderScreen.style.display = "none"; }, 1000);
+        }
+    }, 3500);
 
     const snapScrollParent = document.querySelector(".snap-scroll-parent");
     
-    // --- 1. FORCED 2.5S INTRO LOADER SEQUENCE ---
-    const loaderScreen = document.getElementById("loader-screen");
+    // --- 1. INTRO LOADER PROGRESS SEQUENCE ---
     const loadPct = document.getElementById("load-pct");
     const loadFill = document.getElementById("load-fill");
     const loadMsg = document.getElementById("load-msg");
@@ -33,35 +42,38 @@ document.addEventListener("DOMContentLoaded", () => {
             clearInterval(loaderInterval);
             
             // Finish loader
-            loadPct.textContent = "100%";
-            loadFill.style.width = "100%";
-            loadMsg.textContent = bootMessages[bootMessages.length - 1];
+            if (loadPct) loadPct.textContent = "100%";
+            if (loadFill) loadFill.style.width = "100%";
+            if (loadMsg) loadMsg.textContent = bootMessages[bootMessages.length - 1];
             
             setTimeout(() => {
                 // Slice reveal
-                loaderScreen.classList.add("loaded");
-                
-                // Remove from DOM interaction path after animations finish
-                setTimeout(() => {
-                    loaderScreen.style.display = "none";
-                }, 1000);
-            }, 400);
+                if (loaderScreen) {
+                    loaderScreen.classList.add("loaded");
+                    clearTimeout(safetyTimeout);
+                    // Remove from DOM interaction path after animations finish
+                    setTimeout(() => {
+                        loaderScreen.style.display = "none";
+                    }, 1200);
+                }
+            }, 300);
         } else {
             // Update loading pct and fill bar
-            loadPct.textContent = `${Math.floor(loaderProgress).toString().padStart(2, '0')}%`;
-            loadFill.style.width = `${loaderProgress}%`;
+            if (loadPct) loadPct.textContent = `${Math.floor(loaderProgress).toString().padStart(2, '0')}%`;
+            if (loadFill) loadFill.style.width = `${loaderProgress}%`;
             
             // Fluctuating boot status messages
             const msgIndex = Math.min(
                 Math.floor((loaderProgress / 100) * bootMessages.length),
                 bootMessages.length - 2
             );
-            loadMsg.textContent = bootMessages[msgIndex];
+            if (loadMsg) loadMsg.textContent = bootMessages[msgIndex];
         }
     }, loaderIntervalTime);
 
-    // --- 2. CUSTOM CURSOR & AMBIENT GLOW ---
+    // --- 2. FUTURISTIC CUSTOM CURSOR & AMBIENT GLOW ---
     const customCursor = document.getElementById("custom-cursor");
+    const cursorDot = document.querySelector(".cursor-dot");
     const cursorRing = document.querySelector(".cursor-ring");
     const cursorLabel = document.getElementById("cursor-label");
     const mouseGlow = document.getElementById("mouse-glow");
@@ -74,9 +86,11 @@ document.addEventListener("DOMContentLoaded", () => {
         mouseX = e.clientX;
         mouseY = e.clientY;
         
-        // Move crosshair cursor directly
-        customCursor.style.left = `${mouseX}px`;
-        customCursor.style.top = `${mouseY}px`;
+        // Move inner dot instantly
+        if (cursorDot) {
+            cursorDot.style.left = `${mouseX}px`;
+            cursorDot.style.top = `${mouseY}px`;
+        }
         
         // Update coordinates in status bar
         if (telCoords) {
@@ -92,11 +106,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Smooth cursor trailing ring
     function updateCursorRing() {
-        ringX += (mouseX - ringX) * 0.16;
-        ringY += (mouseY - ringY) * 0.16;
+        ringX += (mouseX - ringX) * 0.18;
+        ringY += (mouseY - ringY) * 0.18;
         
-        cursorRing.style.left = `${ringX}px`;
-        cursorRing.style.top = `${ringY}px`;
+        if (cursorRing) {
+            cursorRing.style.left = `${ringX}px`;
+            cursorRing.style.top = `${ringY}px`;
+        }
         
         requestAnimationFrame(updateCursorRing);
     }
@@ -107,16 +123,18 @@ document.addEventListener("DOMContentLoaded", () => {
         const interactables = document.querySelectorAll("a, button, input, textarea, .card-interactive, .vp-viewport-container, .panel-close-btn");
         interactables.forEach(el => {
             el.addEventListener("mouseenter", () => {
-                customCursor.classList.add("active");
-                cursorLabel.textContent = "SYS_HOVER";
-                cursorLabel.style.color = "var(--accent-orange)";
-                cursorLabel.style.borderColor = "rgba(255, 94, 0, 0.4)";
+                if (customCursor) customCursor.classList.add("active");
+                if (cursorLabel) {
+                    cursorLabel.textContent = "SYS_HOVER";
+                    cursorLabel.style.color = "var(--accent-cyan)";
+                }
             });
             el.addEventListener("mouseleave", () => {
-                customCursor.classList.remove("active");
-                cursorLabel.textContent = "SYS_IDLE";
-                cursorLabel.style.color = "var(--accent-neon)";
-                cursorLabel.style.borderColor = "rgba(57, 255, 20, 0.3)";
+                if (customCursor) customCursor.classList.remove("active");
+                if (cursorLabel) {
+                    cursorLabel.textContent = "SYS_IDLE";
+                    cursorLabel.style.color = "var(--accent-cyan)";
+                }
             });
         });
     }
@@ -135,35 +153,46 @@ document.addEventListener("DOMContentLoaded", () => {
     const closeSculpt = document.getElementById("close-sculpt");
     const closeAi = document.getElementById("close-ai");
 
-    // Open Panels
-    cardMolebots.addEventListener("click", () => {
-        panelMolebots.classList.add("open");
-        snapScrollParent.style.overflowY = "hidden"; // lock vertical snap scroll
-    });
-    cardSculpt.addEventListener("click", () => {
-        panelSculpt.classList.add("open");
-        snapScrollParent.style.overflowY = "hidden";
-    });
-    cardAi.addEventListener("click", () => {
-        panelAi.classList.add("open");
-        snapScrollParent.style.overflowY = "hidden";
-        // Trigger typewriter inside panel C when opened
-        setTimeout(runTerminalTypewriter, 300);
-    });
+    // Open Panels safely
+    if (cardMolebots && panelMolebots) {
+        cardMolebots.addEventListener("click", () => {
+            panelMolebots.classList.add("open");
+            if (snapScrollParent) snapScrollParent.style.overflowY = "hidden"; // lock vertical snap scroll
+        });
+    }
+    if (cardSculpt && panelSculpt) {
+        cardSculpt.addEventListener("click", () => {
+            panelSculpt.classList.add("open");
+            if (snapScrollParent) snapScrollParent.style.overflowY = "hidden";
+        });
+    }
+    if (cardAi && panelAi) {
+        cardAi.addEventListener("click", () => {
+            panelAi.classList.add("open");
+            if (snapScrollParent) snapScrollParent.style.overflowY = "hidden";
+            setTimeout(runTerminalTypewriter, 300);
+        });
+    }
 
-    // Close Panels
-    closeMolebots.addEventListener("click", () => {
-        panelMolebots.classList.remove("open");
-        snapScrollParent.style.overflowY = "scroll"; // unlock vertical snap scroll
-    });
-    closeSculpt.addEventListener("click", () => {
-        panelSculpt.classList.remove("open");
-        snapScrollParent.style.overflowY = "scroll";
-    });
-    closeAi.addEventListener("click", () => {
-        panelAi.classList.remove("open");
-        snapScrollParent.style.overflowY = "scroll";
-    });
+    // Close Panels safely
+    if (closeMolebots && panelMolebots) {
+        closeMolebots.addEventListener("click", () => {
+            panelMolebots.classList.remove("open");
+            if (snapScrollParent) snapScrollParent.style.overflowY = "scroll"; // unlock vertical snap scroll
+        });
+    }
+    if (closeSculpt && panelSculpt) {
+        closeSculpt.addEventListener("click", () => {
+            panelSculpt.classList.remove("open");
+            if (snapScrollParent) snapScrollParent.style.overflowY = "scroll";
+        });
+    }
+    if (closeAi && panelAi) {
+        closeAi.addEventListener("click", () => {
+            panelAi.classList.remove("open");
+            if (snapScrollParent) snapScrollParent.style.overflowY = "scroll";
+        });
+    }
 
     // --- 4. ZBRUSH 3D CUBE ROTATION CONTROLS (PANEL SCULPT) ---
     const cube3d = document.getElementById("cube-3d");
@@ -298,9 +327,9 @@ document.addEventListener("DOMContentLoaded", () => {
     function runTerminalTypewriter() {
         if (!termTypewriter) return;
         termTypewriter.textContent = "";
-        termCompiling.classList.add("hidden");
-        barFill.style.width = "0%";
-        termResults.classList.add("hidden");
+        if (termCompiling) termCompiling.classList.add("hidden");
+        if (barFill) barFill.style.width = "0%";
+        if (termResults) termResults.classList.add("hidden");
         textIndex = 0;
         typeChar();
     }
@@ -313,17 +342,17 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             // Typing complete, trigger fake compiling process bar
             setTimeout(() => {
-                termCompiling.classList.remove("hidden");
+                if (termCompiling) termCompiling.classList.remove("hidden");
                 
                 // Animate progress bar fill over 1.2s
                 setTimeout(() => {
-                    barFill.style.width = "100%";
+                    if (barFill) barFill.style.width = "100%";
                     
                     // Show final response output
                     setTimeout(() => {
-                        termResults.classList.remove("hidden");
+                        if (termResults) termResults.classList.remove("hidden");
                         const consoleElem = document.getElementById("term-console");
-                        consoleElem.scrollTop = consoleElem.scrollHeight;
+                        if (consoleElem) consoleElem.scrollTop = consoleElem.scrollHeight;
                     }, 1200);
                 }, 100);
             }, 300);
@@ -368,30 +397,32 @@ document.addEventListener("DOMContentLoaded", () => {
     const navLinks = document.querySelectorAll(".nav-link");
     const sections = document.querySelectorAll(".snap-board");
     
-    const navObserverOptions = {
-        root: snapScrollParent,
-        rootMargin: "-20% 0px -60% 0px",
-        threshold: 0
-    };
+    if (snapScrollParent && sections.length > 0) {
+        const navObserverOptions = {
+            root: snapScrollParent,
+            rootMargin: "-20% 0px -60% 0px",
+            threshold: 0
+        };
 
-    const navObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const sectionId = entry.target.getAttribute("id");
-                navLinks.forEach(link => {
-                    link.classList.remove("active");
-                    if (link.getAttribute("href") === `#${sectionId}`) {
-                        link.classList.add("active");
-                    }
-                });
-            }
+        const navObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const sectionId = entry.target.getAttribute("id");
+                    navLinks.forEach(link => {
+                        link.classList.remove("active");
+                        if (link.getAttribute("href") === `#${sectionId}`) {
+                            link.classList.add("active");
+                        }
+                    });
+                }
+            });
+        }, navObserverOptions);
+
+        sections.forEach(section => {
+            navObserver.observe(section);
         });
-    }, navObserverOptions);
+    }
 
-    sections.forEach(section => {
-        navObserver.observe(section);
-    });
-
-    console.log("%c FELIPE ANDRADE // SYSTEM CORE LOADED AND CONNECTED ", "background: #000; color: #39ff14; font-size: 14px; font-weight: 800; padding: 5px; border: 1px solid #39ff14;");
+    console.log("%c FELIPE ANDRADE // SYSTEM CORE LOADED AND CONNECTED ", "background: #000; color: #00f0ff; font-size: 14px; font-weight: 800; padding: 5px; border: 1px solid #00f0ff;");
 
 });

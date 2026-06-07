@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FELIPE ANDRADE // CORE SYSTEM</title>
+    <title>FELIPE ANDRADE // CORE NODE</title>
     
     <!-- Meta tags for SEO -->
-    <meta name="description" content="Felipe Andrade - Creative System Dashboard. Digital art, industrial design, and AI content integrations.">
-    <meta name="keywords" content="Felipe Andrade, Brutalist, Cyberpunk, 3D Design, Streetwear, AI Content, WebGL, CSS 3D">
+    <meta name="description" content="Felipe Andrade - Personal Portfolio. Digital Artist, 3D Sculptor, and Streetwear Designer.">
+    <meta name="keywords" content="Felipe Andrade, Portfolio, 3D Art, ZBrush, Streetwear, Mentiramentira, AI Content, Glassmorphism, Futuristic Website">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&family=Space+Grotesk:wght@500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="system-theme">
+<body class="glassy-theme">
 
-    <!-- INTRO LOADING SCREEN (Forced 2.5s Minimum, Slices open horizontally) -->
+    <!-- INTRO LOADING SCREEN (Slices open horizontally, only displays ASCII logo here) -->
     <div id="loader-screen" class="loader-wrapper">
         <div class="loader-slice top-slice"></div>
         <div class="loader-slice bottom-slice"></div>
@@ -34,47 +34,47 @@
 </pre>
             </div>
             <div class="loader-telemetry">
-                <div class="loader-line"><span class="orange">BOOTING_CORE_OS...</span> <span id="load-pct">00%</span></div>
+                <div class="loader-line">
+                    <span class="loader-status">LOADING SYSTEM MODULES</span>
+                    <span id="load-pct" class="glow-text">00%</span>
+                </div>
                 <div class="loader-progress-bar"><div class="loader-progress-fill" id="load-fill"></div></div>
-                <div class="loader-status-msg" id="load-msg">CONNECTING TO PORKBUN NETWORK...</div>
+                <div class="loader-status-msg" id="load-msg">INITIALIZING GRAPHICS PIPELINE...</div>
             </div>
         </div>
     </div>
 
-    <!-- Custom Tech Cursor -->
+    <!-- Custom Futuristic Cursor -->
     <div class="custom-cursor" id="custom-cursor">
-        <div class="cursor-cross"></div>
+        <div class="cursor-dot"></div>
         <div class="cursor-ring"></div>
-        <div class="cursor-label" id="cursor-label">SYS_IDLE</div>
     </div>
 
-    <!-- Mouse Ambient Light Layer -->
-    <div class="mouse-glow-container" id="mouse-glow"></div>
+    <!-- Wavy Animated Gradient Background Blobs -->
+    <div class="wavy-bg">
+        <div class="blob blob-purple"></div>
+        <div class="blob blob-blue"></div>
+        <div class="blob blob-cyan"></div>
+    </div>
 
-    <!-- Screen Overlays for CRT and Blueprint feel -->
-    <div class="grid-overlay"></div>
-    <div class="scanline-overlay"></div>
-    <div class="screen-flicker"></div>
-    <div class="vignette"></div>
-
-    <!-- Live Telemetry Status Header -->
+    <!-- Top Telemetry Status Header -->
     <div class="telemetry-bar">
-        <div class="tel-item"><span class="tel-tag green">STATUS:</span> <span class="blink">SYSTEM_ACTIVE</span></div>
-        <div class="tel-item"><span class="tel-tag orange">NODE:</span> PORKBUN_CONNECT // SECURE</div>
-        <div class="tel-item"><span class="tel-tag blue">COORDS:</span> <span id="tel-coords">X: 000 / Y: 000</span></div>
-        <div class="tel-item"><span class="tel-tag green">UPTIME:</span> <span id="tel-uptime">00:00:00</span></div>
+        <div class="tel-item"><span class="tel-tag">SYSTEM_NODE:</span> ACTIVE</div>
+        <div class="tel-item"><span class="tel-tag">DNS:</span> PORKBUN_CONNECT</div>
+        <div class="tel-item"><span class="tel-tag">COORDS:</span> <span id="tel-coords" class="cyan-text">X: 000 / Y: 000</span></div>
+        <div class="tel-item"><span class="tel-tag">UPTIME:</span> <span id="tel-uptime">00:00:00</span></div>
     </div>
 
     <!-- Main Navigation Header -->
     <header class="sys-header">
         <div class="logo-container">
-            <span class="status-indicator-dot"></span>
-            <span class="logo-text glitch" data-text="F_ANDRADE // CORE_NODE">F_ANDRADE // CORE_NODE</span>
+            <span class="logo-dot animate-pulse"></span>
+            <span class="logo-text">FELIPE ANDRADE</span>
         </div>
         <nav class="sys-nav">
-            <a href="#landing" class="nav-link active"><span class="nav-num">01_</span>INTRO</a>
-            <a href="#projects-hub" class="nav-link"><span class="nav-num">02_</span>BOARDS</a>
-            <a href="#contact" class="nav-link"><span class="nav-num">03_</span>EST_COMM</a>
+            <a href="#landing" class="nav-link active"><span class="nav-num">01/</span>INTRO</a>
+            <a href="#projects-hub" class="nav-link"><span class="nav-num">02/</span>BOARDS</a>
+            <a href="#contact" class="nav-link"><span class="nav-num">03/</span>CONNECT</a>
         </nav>
     </header>
 
@@ -83,15 +83,10 @@
 
         <!-- BOARD 1: LANDING / HERO -->
         <section class="snap-board landing-board" id="landing">
-            <div class="board-inner">
-                <div class="tech-lines"></div>
-                <div class="cyber-bracket top-left"></div>
-                <div class="cyber-bracket top-right"></div>
-                <div class="cyber-bracket bottom-left"></div>
-                <div class="cyber-bracket bottom-right"></div>
-                
-                <div class="card-tag">SYSTEM_INITIALIZATION</div>
-                <h1 class="glitch-title" data-text="FELIPE ANDRADE">FELIPE ANDRADE</h1>
+            <div class="board-inner glass-card">
+                <div class="glow-overlay"></div>
+                <span class="card-category">[ CORE INDEX ]</span>
+                <h1 class="hero-title">FELIPE ANDRADE</h1>
                 <p class="subtitle">// DIGITAL ARTIST // DESIGNER // AI INTEGRATOR</p>
                 
                 <div class="tech-stats-row">
@@ -109,55 +104,43 @@
                     </div>
                 </div>
 
-                <div class="scroll-instruct blink">
-                    SWIPE_OR_SCROLL_DOWN_TO_ENTER_SYSTEM ↓
+                <div class="scroll-instruct">
+                    SWIPE OR SCROLL DOWN TO EXPLORE BOARDS <span class="arrow-bounce">↓</span>
                 </div>
             </div>
         </section>
 
         <!-- BOARD 2: PROJECTS HUB -->
         <section class="snap-board projects-board" id="projects-hub">
-            <div class="board-inner grid-inner">
+            <div class="board-inner glass-card grid-inner">
                 <div class="board-header">
-                    <h2><span class="orange">[02_]</span> SYSTEM_MODULE_SELECT</h2>
-                    <p class="subtitle">SELECT MODULE TO EXPAND CORE DETAILS</p>
+                    <h2>PORTFOLIO BOARDS</h2>
+                    <p class="subtitle">SELECT A MODULE BELOW TO PROJECT ITS CORE PARAMETERS</p>
                 </div>
                 
                 <div class="projects-grid">
                     <!-- Project Card A: Molebots -->
-                    <div class="project-hub-card card-interactive" id="card-molebots">
-                        <div class="cyber-bracket top-left"></div>
-                        <div class="cyber-bracket top-right"></div>
-                        <div class="cyber-bracket bottom-left"></div>
-                        <div class="cyber-bracket bottom-right"></div>
+                    <div class="project-hub-card glass-card card-interactive" id="card-molebots">
                         <div class="hub-card-num">01</div>
                         <h3 class="hub-card-title">MOLEBOTS</h3>
-                        <p class="hub-card-desc">3D printed modular grinders. Viral CAD geometric design.</p>
-                        <span class="hub-card-action">[ EXPAND_MODULE ]</span>
+                        <p class="hub-card-desc">Computational 3D printed modular grinders. Viral design case study.</p>
+                        <span class="hub-card-action">EXPAND MODULE →</span>
                     </div>
 
                     <!-- Project Card B: Sculpting -->
-                    <div class="project-hub-card card-interactive" id="card-sculpt">
-                        <div class="cyber-bracket top-left"></div>
-                        <div class="cyber-bracket top-right"></div>
-                        <div class="cyber-bracket bottom-left"></div>
-                        <div class="cyber-bracket bottom-right"></div>
+                    <div class="project-hub-card glass-card card-interactive" id="card-sculpt">
                         <div class="hub-card-num">02</div>
-                        <h3 class="hub-card-title">3D_MODELING</h3>
-                        <p class="hub-card-desc">Hard surface weapon & mech rigging simulations.</p>
-                        <span class="hub-card-action">[ EXPAND_MODULE ]</span>
+                        <h3 class="hub-card-title">3D MODELING</h3>
+                        <p class="hub-card-desc">Hard surface modeling, texturing, and rigging for weapons & mechs.</p>
+                        <span class="hub-card-action">EXPAND MODULE →</span>
                     </div>
 
                     <!-- Project Card C: AI Content -->
-                    <div class="project-hub-card card-interactive" id="card-ai">
-                        <div class="cyber-bracket top-left"></div>
-                        <div class="cyber-bracket top-right"></div>
-                        <div class="cyber-bracket bottom-left"></div>
-                        <div class="cyber-bracket bottom-right"></div>
+                    <div class="project-hub-card glass-card card-interactive" id="card-ai">
                         <div class="hub-card-num">03</div>
-                        <h3 class="hub-card-title">AI_DESIGN</h3>
-                        <p class="hub-card-desc">Generative brand art and synthetic media integrations.</p>
-                        <span class="hub-card-action">[ EXPAND_MODULE ]</span>
+                        <h3 class="hub-card-title">AI DESIGN</h3>
+                        <p class="hub-card-desc">Synthetic media pipelines, generative visual arts, and brand assets.</p>
+                        <span class="hub-card-action">EXPAND MODULE →</span>
                     </div>
                 </div>
             </div>
@@ -165,15 +148,10 @@
 
         <!-- BOARD 3: CONTACT PORTAL -->
         <section class="snap-board contact-board" id="contact">
-            <div class="board-inner">
-                <div class="cyber-bracket top-left"></div>
-                <div class="cyber-bracket top-right"></div>
-                <div class="cyber-bracket bottom-left"></div>
-                <div class="cyber-bracket bottom-right"></div>
-                
+            <div class="board-inner glass-card">
                 <div class="board-header">
-                    <h2><span class="orange">[03_]</span> ESTABLISH_COMMUNICATION</h2>
-                    <p class="subtitle">SEND SECURED PACKET ROUTE TO SENDER_ID</p>
+                    <h2>ESTABLISH COMMUNICATIONS</h2>
+                    <p class="subtitle">SEND A PAYLOAD TO ROUTE DIRECT COORDINATES</p>
                 </div>
 
                 <div class="contact-layout">
@@ -181,28 +159,28 @@
                         <div class="form-row">
                             <div class="input-wrap">
                                 <label>SENDER_ID</label>
-                                <input type="text" id="sender-id" required placeholder="E.G., BRAND_X">
+                                <input type="text" id="sender-id" required placeholder="YOUR NAME OR BRAND">
                             </div>
                             <div class="input-wrap">
-                                <label>SENDER_NODE_EMAIL</label>
-                                <input type="email" id="sender-email" required placeholder="E.G., NAME@DOMAIN.COM">
+                                <label>EMAIL NODE</label>
+                                <input type="email" id="sender-email" required placeholder="CONTACT@EMAIL.COM">
                             </div>
                         </div>
                         <div class="input-wrap">
-                            <label>PAYLOAD_BRIEF</label>
-                            <textarea id="payload" required rows="4" placeholder="DECRYPT YOUR ENCRYPTED MSG HERE..."></textarea>
+                            <label>TRANSMISSION BRIEF</label>
+                            <textarea id="payload" required rows="4" placeholder="DESCRIBE YOUR CO-DESIGN PROJECT DATA..."></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary btn-block glow-btn">
-                            <span>EXECUTE_TRANSMISSION</span>
+                            <span>EXECUTE TRANSMISSION</span>
                         </button>
                         <div id="tx-status" class="tx-status hidden"></div>
                     </form>
 
                     <div class="coordinates-info">
-                        <h4>COORDINATES_DATA:</h4>
+                        <h4>DIRECT LINKS:</h4>
                         <ul>
-                            <li>EMAIL: felipe@felipeandrade.xyz</li>
-                            <li>STREETWEAR: mentiramentira.com</li>
+                            <li>EMAIL: <a href="mailto:felipe@felipeandrade.xyz">felipe@felipeandrade.xyz</a></li>
+                            <li>CLOTHING: <a href="https://mentiramentira.com" target="_blank" rel="noopener">mentiramentira.com</a></li>
                             <li>LOC: LAT_LON // GLOBAL</li>
                         </ul>
                     </div>
@@ -213,15 +191,15 @@
     </div>
 
     <!-- ==========================================================================
-         HORIZONTAL SLIDE-OUT DETAIL PANELS (Hidden initially, slides from right)
+         HORIZONTAL SLIDE-OUT DETAIL PANELS (Glass overlay panels)
          ========================================================================== -->
 
     <!-- PANEL A: MOLEBOTS -->
-    <div class="detail-panel" id="panel-molebots">
-        <button class="panel-close-btn" id="close-molebots">[ ESC_MODULE // CLOSE ]</button>
+    <div class="detail-panel glass-card" id="panel-molebots">
+        <button class="panel-close-btn" id="close-molebots">[ ESC_MODULE ]</button>
         <div class="panel-scroll-container">
             <div class="panel-section-header">
-                <h2><span class="orange">01_</span> MOLEBOTS_TELEMETRY</h2>
+                <h2>01 / MOLEBOTS TELEMETRY</h2>
                 <div class="header-bar"></div>
             </div>
 
@@ -234,7 +212,7 @@
                         </div>
                         <div class="gauge-info">
                             <div class="info-title">GRINDER_RPM</div>
-                            <div class="info-status green">OPTIMAL</div>
+                            <div class="info-status">OPTIMAL</div>
                         </div>
                     </div>
 
@@ -251,21 +229,21 @@
                                 <span>LAYER_RESOLUTION</span>
                                 <span>0.12MM</span>
                             </div>
-                            <div class="progress-bar"><div class="progress-fill orange" style="width: 85%;"></div></div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 85%;"></div></div>
                         </div>
                     </div>
                 </div>
 
                 <div class="panel-right-content">
-                    <h3 class="panel-title">MOLEBOTS GEOMETRIC FDM DESIGN</h3>
+                    <h3 class="panel-title">GEOMETRIC FDM DESIGN</h3>
                     <p class="panel-desc">
                         A viral direct-to-consumer case study. By integrating raw computational geometries with modular interlocking components, Molebots grinders redefined visual accessories across social platforms.
                     </p>
                     <ul class="telemetry-list-vertical">
-                        <li><strong>FABRICATOR:</strong> FDM MULTI-EXTRUDER</li>
-                        <li><strong>PLA TOUGHNESS:</strong> PLA-PRO REINFORCED</li>
-                        <li><strong>GEOMETRY:</strong> DUAL INTERLOCK MODULE</li>
-                        <li><strong>SALES:</strong> DIRECT TO CONSUMER // VIRAL</li>
+                        <li><strong>FABRICATOR:</strong> <span>FDM MULTI-EXTRUDER</span></li>
+                        <li><strong>PLA TOUGHNESS:</strong> <span>PLA-PRO REINFORCED</span></li>
+                        <li><strong>GEOMETRY:</strong> <span>DUAL INTERLOCK MODULE</span></li>
+                        <li><strong>SALES:</strong> <span>DIRECT TO CONSUMER // VIRAL</span></li>
                     </ul>
                     <a href="https://instagram.com" target="_blank" rel="noopener" class="btn btn-primary glow-btn">
                         <span>EXPLORE MOLEBOTS SOCIALS</span>
@@ -276,11 +254,11 @@
     </div>
 
     <!-- PANEL B: 3D MODELING & SCULPTING -->
-    <div class="detail-panel" id="panel-sculpt">
-        <button class="panel-close-btn" id="close-sculpt">[ ESC_MODULE // CLOSE ]</button>
+    <div class="detail-panel glass-card" id="panel-sculpt">
+        <button class="panel-close-btn" id="close-sculpt">[ ESC_MODULE ]</button>
         <div class="panel-scroll-container">
             <div class="panel-section-header">
-                <h2><span class="orange">02_</span> 3D_SCULPT_VIEWPORT</h2>
+                <h2>02 / 3D SCULPT VIEWPORT</h2>
                 <div class="header-bar"></div>
             </div>
 
@@ -315,9 +293,9 @@
                         Designing visual components for AAA cinematic VFX pipelines. My work involves mechanical concept logic, rigging assemblies, and detailed wear texturing.
                     </p>
                     <ul class="telemetry-list-vertical">
-                        <li><strong>SOFTWARE:</strong> ZBRUSH / BLENDER / Substance</li>
-                        <li><strong>TRIGGERS:</strong> RIGGED SYSTEMS ACTIVE</li>
-                        <li><strong>TOPOLOGY:</strong> QUAD-OPTIMIZED SUBDIVS</li>
+                        <li><strong>SOFTWARE:</strong> <span>ZBRUSH / BLENDER / SUBSTANCE</span></li>
+                        <li><strong>TRIGGERS:</strong> <span>RIGGED SYSTEMS ACTIVE</span></li>
+                        <li><strong>TOPOLOGY:</strong> <span>QUAD-OPTIMIZED SUBDIVS</span></li>
                     </ul>
                 </div>
             </div>
@@ -325,11 +303,11 @@
     </div>
 
     <!-- PANEL C: AI CONTENT DESIGN -->
-    <div class="detail-panel" id="panel-ai">
-        <button class="panel-close-btn" id="close-ai">[ ESC_MODULE // CLOSE ]</button>
+    <div class="detail-panel glass-card" id="panel-ai">
+        <button class="panel-close-btn" id="close-ai">[ ESC_MODULE ]</button>
         <div class="panel-scroll-container">
             <div class="panel-section-header">
-                <h2><span class="orange">03_</span> AI_CONTENT_ENGINE</h2>
+                <h2>03 / AI CONTENT ENGINE</h2>
                 <div class="header-bar"></div>
             </div>
 
@@ -353,7 +331,7 @@
                             <div class="result-block">
                                 "UNCONVENTIONAL FORM. MECHANICAL TRUTH. APPAREL AND GRINDERS AREN'T JUST PRODUCTS, THEY'RE SYNTHETIC MEDIA STATIONS FOR BRANDS IN THE MATRIX."
                             </div>
-                            <button class="btn btn-tiny" id="btn-reboot">REBOOT_PIPELINE</button>
+                            <button class="btn btn-tiny" id="btn-reboot">REBOOT PIPELINE</button>
                         </div>
                     </div>
                 </div>
@@ -364,9 +342,9 @@
                         Creating scalable content generation models for digital entrepreneurs. Fusing stable diffusion, custom LLM agents, and high-contrast UI parameters.
                     </p>
                     <ul class="telemetry-list-vertical">
-                        <li><strong>MODELS:</strong> MIDJOURNEY / FLUX / GPT-AGENTS</li>
-                        <li><strong>PIPELINES:</strong> AUTOMATED CONTENT COMPILE</li>
-                        <li><strong>REACH:</strong> TIKTOK / INSTAGRAM OPTIMIZED</li>
+                        <li><strong>MODELS:</strong> <span>MIDJOURNEY / FLUX / GPT-AGENTS</span></li>
+                        <li><strong>PIPELINES:</strong> <span>AUTOMATED CONTENT COMPILE</span></li>
+                        <li><strong>REACH:</strong> <span>TIKTOK / INSTAGRAM OPTIMIZED</span></li>
                     </ul>
                 </div>
             </div>
