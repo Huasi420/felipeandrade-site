@@ -14,8 +14,6 @@ document.addEventListener("DOMContentLoaded", () => {
             setTimeout(() => { loaderScreen.style.display = "none"; }, 1000);
         }
     }, 3500);
-
-    const snapScrollParent = document.querySelector(".snap-scroll-parent");
     
     // --- 1. INTRO LOADER PROGRESS SEQUENCE ---
     const loadPct = document.getElementById("load-pct");
@@ -24,10 +22,10 @@ document.addEventListener("DOMContentLoaded", () => {
     
     const bootMessages = [
         "ESTABLISHING SECURE CONNECTION...",
-        "PARSING ASCII GEOMETRY MODULES...",
-        "MOUNTING 3D VIEWPORT KERNEL...",
+        "PARSING HOLOGRAPHIC GEOMETRY...",
+        "MOUNTING TACTILE CONCRETE MESH...",
         "SYNCHRONIZING PORKBUN DNS CONNECT...",
-        "COMPILING STYLESHEET ARRAYS...",
+        "COMPILING SHADER ARRAYS...",
         "SYSTEM ONLINE // WELCOME FELIPE"
     ];
     
@@ -73,12 +71,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }, loaderIntervalTime);
 
-    // --- 2. FUTURISTIC CUSTOM CURSOR & AMBIENT GLOW ---
+    // --- 2. FUTURISTIC CUSTOM CURSOR & AMBIENT COORDINATES ---
     const customCursor = document.getElementById("custom-cursor");
     const cursorDot = document.querySelector(".cursor-dot");
     const cursorRing = document.querySelector(".cursor-ring");
     const cursorLabel = document.getElementById("cursor-label");
-    const mouseGlow = document.getElementById("mouse-glow");
     const telCoords = document.getElementById("tel-coords");
     
     let mouseX = 0, mouseY = 0;
@@ -92,17 +89,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (cursorDot) {
             cursorDot.style.left = `${mouseX}px`;
             cursorDot.style.top = `${mouseY}px`;
-        }
-        
-        // Update coordinates in status bar
-        if (telCoords) {
-            telCoords.textContent = `X: ${String(mouseX).padStart(3, '0')} / Y: ${String(mouseY).padStart(3, '0')}`;
-        }
-        
-        // Update radial lighting position
-        if (mouseGlow) {
-            mouseGlow.style.setProperty("--mouse-x", `${e.clientX}px`);
-            mouseGlow.style.setProperty("--mouse-y", `${e.clientY}px`);
         }
     });
 
@@ -122,82 +108,128 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Scale cursor hover states
     function addHoverListeners() {
-        const interactables = document.querySelectorAll("a, button, input, textarea, .card-interactive, .vp-viewport-container, .panel-close-btn");
+        const interactables = document.querySelectorAll("a, button, input, textarea, .card-interactive, .featured-viewport-container, .panel-close-btn");
         interactables.forEach(el => {
             el.addEventListener("mouseenter", () => {
                 if (customCursor) customCursor.classList.add("active");
-                if (cursorLabel) {
-                    cursorLabel.textContent = "SYS_HOVER";
-                    cursorLabel.style.color = "var(--accent-cyan)";
-                }
+                if (cursorLabel) cursorLabel.textContent = "SYS_HOVER";
             });
             el.addEventListener("mouseleave", () => {
                 if (customCursor) customCursor.classList.remove("active");
-                if (cursorLabel) {
-                    cursorLabel.textContent = "SYS_IDLE";
-                    cursorLabel.style.color = "var(--accent-cyan)";
-                }
+                if (cursorLabel) cursorLabel.textContent = "SYS_IDLE";
             });
         });
     }
     addHoverListeners();
 
-    // --- 3. HORIZONTAL SLIDE-OUT DETAIL PANELS ---
-    const panelMolebots = document.getElementById("panel-molebots");
-    const panelSculpt = document.getElementById("panel-sculpt");
-    const panelAi = document.getElementById("panel-ai");
-    
-    const cardMolebots = document.getElementById("card-molebots");
-    const cardSculpt = document.getElementById("card-sculpt");
-    const cardAi = document.getElementById("card-ai");
-    
-    const closeMolebots = document.getElementById("close-molebots");
-    const closeSculpt = document.getElementById("close-sculpt");
-    const closeAi = document.getElementById("close-ai");
-
-    // Open Panels safely
-    if (cardMolebots && panelMolebots) {
-        cardMolebots.addEventListener("click", () => {
-            panelMolebots.classList.add("open");
-            if (snapScrollParent) snapScrollParent.style.overflowY = "hidden"; // lock vertical snap scroll
-        });
-    }
-    if (cardSculpt && panelSculpt) {
-        cardSculpt.addEventListener("click", () => {
-            panelSculpt.classList.add("open");
-            if (snapScrollParent) snapScrollParent.style.overflowY = "hidden";
-        });
-    }
-    if (cardAi && panelAi) {
-        cardAi.addEventListener("click", () => {
-            panelAi.classList.add("open");
-            if (snapScrollParent) snapScrollParent.style.overflowY = "hidden";
-            setTimeout(runTerminalTypewriter, 300);
-        });
-    }
-
-    // Close Panels safely
-    if (closeMolebots && panelMolebots) {
-        closeMolebots.addEventListener("click", () => {
-            panelMolebots.classList.remove("open");
-            if (snapScrollParent) snapScrollParent.style.overflowY = "scroll"; // unlock vertical snap scroll
-        });
-    }
-    if (closeSculpt && panelSculpt) {
-        closeSculpt.addEventListener("click", () => {
-            panelSculpt.classList.remove("open");
-            if (snapScrollParent) snapScrollParent.style.overflowY = "scroll";
-        });
-    }
-    if (closeAi && panelAi) {
-        closeAi.addEventListener("click", () => {
-            panelAi.classList.remove("open");
-            if (snapScrollParent) snapScrollParent.style.overflowY = "scroll";
-        });
-    }
-
-    // --- 4. ZBRUSH 3D CUBE ROTATION CONTROLS (PANEL SCULPT) ---
+    // --- 3. DYNAMIC INTERACTIVE GALLERY PROJECT SWITCHER ---
+    const galleryCards = document.querySelectorAll(".gallery-card");
+    const featuredTitle = document.getElementById("featured-title");
+    const featuredSubtitle = document.getElementById("featured-subtitle");
+    const featuredStatus = document.getElementById("featured-status");
+    const featuredIterations = document.getElementById("featured-iterations");
+    const featuredViewBtn = document.getElementById("featured-view-btn");
     const cube3d = document.getElementById("cube-3d");
+
+    // Track active panel ID
+    let currentPanelId = "panel-molebots";
+
+    galleryCards.forEach(card => {
+        card.addEventListener("click", () => {
+            // Remove active class from all cards, add to clicked card
+            galleryCards.forEach(c => c.classList.remove("active"));
+            card.classList.add("active");
+
+            // Extract project data attributes
+            const title = card.getAttribute("data-title");
+            const subtitle = card.getAttribute("data-subtitle");
+            const status = card.getAttribute("data-status");
+            const iterations = card.getAttribute("data-iterations");
+            currentPanelId = card.getAttribute("data-panel");
+
+            // Update Featured Artifact Panel details
+            if (featuredTitle) featuredTitle.textContent = title;
+            if (featuredSubtitle) featuredSubtitle.textContent = subtitle;
+            if (featuredStatus) {
+                featuredStatus.textContent = status;
+                // Change status color based on text
+                featuredStatus.className = "val " + (status === "PRODUCTION" || status === "ONLINE" ? "green-text" : "cyan-text");
+            }
+            if (featuredIterations) featuredIterations.textContent = iterations;
+
+            // Trigger a quick spin effect on the 3D cube model as a transition indicator
+            if (cube3d) {
+                cube3d.style.transition = "transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)";
+                cube3d.style.transform = "rotateX(360deg) rotateY(360deg)";
+                setTimeout(() => {
+                    cube3d.style.transition = "transform 0.1s ease-out";
+                    rotX = -25; rotY = 45;
+                    cube3d.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+                }, 600);
+            }
+        });
+    });
+
+    // --- 4. VIEW PROJECT DETAIL PANEL TOGGLES ---
+    const detailPanels = document.querySelectorAll(".detail-panel");
+    const closeButtons = document.querySelectorAll(".panel-close-btn");
+
+    // Open Panel from Featured Card view button
+    if (featuredViewBtn) {
+        featuredViewBtn.addEventListener("click", () => {
+            const targetPanel = document.getElementById(currentPanelId);
+            if (targetPanel) {
+                targetPanel.classList.add("open");
+                document.body.style.overflow = "hidden"; // lock page scroll
+                
+                // If it is the AI console panel, trigger typewriter typing
+                if (currentPanelId === "panel-ai") {
+                    setTimeout(runTerminalTypewriter, 300);
+                }
+            }
+        });
+    }
+
+    // Connect nav sidebar links to overlay panels
+    const navItems = document.querySelectorAll(".nav-item");
+    navItems.forEach(item => {
+        item.addEventListener("click", (e) => {
+            const targetAttr = item.getAttribute("href");
+            
+            // Check if nav item targets a specific detail panel
+            let panelTarget = null;
+            if (targetAttr.includes("card-molebots")) {
+                panelTarget = document.getElementById("panel-molebots");
+            } else if (targetAttr.includes("card-sculpt")) {
+                panelTarget = document.getElementById("panel-sculpt");
+            } else if (targetAttr.includes("card-ai")) {
+                panelTarget = document.getElementById("panel-ai");
+            } else if (targetAttr.includes("secure-contact")) {
+                panelTarget = document.getElementById("panel-contact");
+            }
+
+            if (panelTarget) {
+                e.preventDefault();
+                panelTarget.classList.add("open");
+                document.body.style.overflow = "hidden";
+                if (panelTarget.id === "panel-ai") {
+                    setTimeout(runTerminalTypewriter, 300);
+                }
+            }
+        });
+    });
+
+    // Close any active panel
+    closeButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+            detailPanels.forEach(panel => panel.classList.remove("open"));
+            document.body.style.overflow = ""; // restore page scroll
+        });
+    });
+
+    // --- 5. 3D CUBE DRAG ROTATION MECHANICS ---
+    
+    // VIEWPORT A: FEATURED PANEL VIEWPORT
     const container3d = document.getElementById("3d-container");
     const rotDisplay = document.getElementById("vp-rot-display");
     
@@ -207,10 +239,10 @@ document.addEventListener("DOMContentLoaded", () => {
     let rotY = 45;  // initial angle
     let autoRotActive = true;
 
-    if (container3d) {
+    if (container3d && cube3d) {
         container3d.addEventListener("mousedown", (e) => {
             isDragging = true;
-            autoRotActive = false; // Pause auto rotate on drag
+            autoRotActive = false;
             startX = e.clientX;
             startY = e.clientY;
             
@@ -219,7 +251,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         document.addEventListener("mousemove", (e) => {
-            if (!isDragging || !cube3d) return;
+            if (!isDragging) return;
             
             const deltaX = e.clientX - startX;
             const deltaY = e.clientY - startY;
@@ -227,9 +259,7 @@ document.addEventListener("DOMContentLoaded", () => {
             rotY += deltaX * 0.5;
             rotX -= deltaY * 0.5;
             
-            // Clamp X tilt to prevent vertical inversion
-            rotX = Math.max(-80, Math.min(80, rotX));
-            
+            rotX = Math.max(-85, Math.min(85, rotX)); // clamp tilt
             cube3d.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
             
             if (rotDisplay) {
@@ -243,18 +273,15 @@ document.addEventListener("DOMContentLoaded", () => {
         document.addEventListener("mouseup", () => {
             if (isDragging) {
                 isDragging = false;
-                // Resume auto-rotation after 3 seconds of inactivity
-                setTimeout(() => {
-                    if (!isDragging) autoRotActive = true;
-                }, 3000);
+                setTimeout(() => { if (!isDragging) autoRotActive = true; }, 3000);
             }
         });
     }
 
-    // Auto rotate cube when idle
+    // Auto rotate featured cube when idle
     function autoRotateCube() {
-        if (autoRotActive && cube3d) {
-            rotY += 0.4;
+        if (autoRotActive && cube3d && !isDragging) {
+            rotY += 0.35;
             cube3d.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
             if (rotDisplay) {
                 rotDisplay.textContent = `ROT: X: ${Math.round(rotX)}° / Y: ${Math.round(rotY)}°`;
@@ -264,31 +291,131 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     autoRotateCube();
 
-    // --- 5. LIVE SYSTEM TELEMETRY FLUCTUATIONS ---
-    const uptimeDisplay = document.getElementById("tel-uptime");
-    const cpuDisplay = document.getElementById("stat-cpu");
-    const memDisplay = document.getElementById("stat-mem");
+    // VIEWPORT B: PANEL SCULPT DETAIL VIEWPORT
+    const cube3dSculpt = document.getElementById("cube-3d-sculpt");
+    const container3dSculpt = document.getElementById("3d-container-sculpt");
+    const rotDisplaySculpt = document.getElementById("vp-rot-display-sculpt");
     
-    // Panel specific telemetry
+    let isDraggingSculpt = false;
+    let startXSculpt = 0, startYSculpt = 0;
+    let rotXSculpt = -25, rotYSculpt = 45;
+    let autoRotSculpt = true;
+
+    if (container3dSculpt && cube3dSculpt) {
+        container3dSculpt.addEventListener("mousedown", (e) => {
+            isDraggingSculpt = true;
+            autoRotSculpt = false;
+            startXSculpt = e.clientX;
+            startYSculpt = e.clientY;
+        });
+
+        document.addEventListener("mousemove", (e) => {
+            if (!isDraggingSculpt) return;
+            
+            const deltaX = e.clientX - startXSculpt;
+            const deltaY = e.clientY - startYSculpt;
+            
+            rotYSculpt += deltaX * 0.5;
+            rotXSculpt -= deltaY * 0.5;
+            
+            rotXSculpt = Math.max(-85, Math.min(85, rotXSculpt));
+            cube3dSculpt.style.transform = `rotateX(${rotXSculpt}deg) rotateY(${rotYSculpt}deg)`;
+            
+            if (rotDisplaySculpt) {
+                rotDisplaySculpt.textContent = `ROT: X: ${Math.round(rotXSculpt)}° / Y: ${Math.round(rotYSculpt)}°`;
+            }
+            
+            startXSculpt = e.clientX;
+            startYSculpt = e.clientY;
+        });
+
+        document.addEventListener("mouseup", () => {
+            if (isDraggingSculpt) {
+                isDraggingSculpt = false;
+                setTimeout(() => { if (!isDraggingSculpt) autoRotSculpt = true; }, 3000);
+            }
+        });
+    }
+
+    function autoRotateCubeSculpt() {
+        if (autoRotSculpt && cube3dSculpt && !isDraggingSculpt) {
+            rotYSculpt += 0.4;
+            cube3dSculpt.style.transform = `rotateX(${rotXSculpt}deg) rotateY(${rotYSculpt}deg)`;
+            if (rotDisplaySculpt) {
+                rotDisplaySculpt.textContent = `ROT: X: ${Math.round(rotXSculpt)}° / Y: ${Math.round(rotYSculpt)}°`;
+            }
+        }
+        requestAnimationFrame(autoRotateCubeSculpt);
+    }
+    autoRotateCubeSculpt();
+
+    // --- 6. DYNAMIC 3D WIREFRAME CANVASES GRID DRAWING (STATS CARD) ---
+    const statsCanvas = document.getElementById("stats-canvas");
+    if (statsCanvas) {
+        const ctx = statsCanvas.getContext("2d");
+        let waveTime = 0;
+
+        function drawStatsMesh() {
+            // Resize canvas context boundaries dynamically to parent box
+            const parentWidth = statsCanvas.parentElement.clientWidth;
+            const parentHeight = statsCanvas.parentElement.clientHeight || 80;
+            statsCanvas.width = parentWidth;
+            statsCanvas.height = parentHeight;
+
+            ctx.clearRect(0, 0, statsCanvas.width, statsCanvas.height);
+            
+            // Draw real-time sine grid mesh
+            ctx.strokeStyle = "rgba(0, 240, 255, 0.22)";
+            ctx.lineWidth = 1;
+
+            const gridRows = 5;
+            const gridCols = 15;
+            const stepX = statsCanvas.width / (gridCols - 1);
+            const stepY = statsCanvas.height / (gridRows - 1);
+
+            // Draw horizontal rows
+            for (let r = 0; r < gridRows; r++) {
+                ctx.beginPath();
+                for (let c = 0; c < gridCols; c++) {
+                    const x = c * stepX;
+                    // distorts height coordinates using stacked math sine waves
+                    const z = Math.sin(c * 0.5 + waveTime) * Math.cos(r * 0.4 + waveTime * 0.4) * 6;
+                    const y = r * stepY + z + 8;
+                    
+                    if (c === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.stroke();
+            }
+
+            // Draw vertical columns
+            for (let c = 0; c < gridCols; c++) {
+                ctx.beginPath();
+                for (let r = 0; r < gridRows; r++) {
+                    const x = c * stepX;
+                    const z = Math.sin(c * 0.5 + waveTime) * Math.cos(r * 0.4 + waveTime * 0.4) * 6;
+                    const y = r * stepY + z + 8;
+
+                    if (r === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.stroke();
+            }
+
+            waveTime += 0.025;
+            requestAnimationFrame(drawStatsMesh);
+        }
+        
+        // Start canvas wireframe animation
+        drawStatsMesh();
+    }
+
+    // --- 7. TELEMETRY STATUS DATA FLUCTUATIONS ---
     const flowDisplay = document.getElementById("flow-val");
     const flowFill = document.getElementById("flow-fill");
     const gaugeVal = document.getElementById("gauge-val");
     
-    const startTime = Date.now();
-
     function updateStats() {
-        // CPU Load fluctuate
-        if (cpuDisplay) {
-            const loadVal = (10 + Math.random() * 8).toFixed(1);
-            cpuDisplay.textContent = `${loadVal}%`;
-        }
-        
-        // Memory capacity hover
-        if (memDisplay) {
-            const memVal = (98.0 + Math.random() * 0.8).toFixed(1);
-            memDisplay.textContent = `${memVal}%`;
-        }
-        
         // Extrusion flow telemetry progress bar (Panel A)
         if (flowDisplay && flowFill) {
             const flow = (94.0 + Math.random() * 4).toFixed(1);
@@ -301,21 +428,12 @@ document.addEventListener("DOMContentLoaded", () => {
             const rpm = (64.5 + Math.random() * 1.5).toFixed(1);
             gaugeVal.textContent = rpm;
         }
-
-        // Ticking Uptime
-        const elapsedSecs = Math.floor((Date.now() - startTime) / 1000);
-        const hrs = String(Math.floor(elapsedSecs / 3600)).padStart(2, '0');
-        const mins = String(Math.floor((elapsedSecs % 3600) / 60)).padStart(2, '0');
-        const secs = String(elapsedSecs % 60).padStart(2, '0');
-        if (uptimeDisplay) {
-            uptimeDisplay.textContent = `${hrs}:${mins}:${secs}`;
-        }
     }
     
     setInterval(updateStats, 1500);
     updateStats();
 
-    // --- 6. AI PROMPT TERMINAL PROCESSOR (PANEL AI) ---
+    // --- 8. AI PROMPT TERMINAL PROCESSOR (PANEL AI) ---
     const termTypewriter = document.getElementById("term-typewriter");
     const termCompiling = document.getElementById("term-compiling");
     const barFill = document.getElementById("term-bar-fill");
@@ -368,7 +486,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // --- 7. SECURE TRANSMISSION DISPATCH ---
+    // --- 9. SECURE TRANSMISSION DISPATCH ---
     const contactForm = document.getElementById("secure-contact");
     const txStatus = document.getElementById("tx-status");
 
@@ -395,36 +513,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Navigation Active Link highlight on Scroll (snap observer)
-    const navLinks = document.querySelectorAll(".nav-link");
-    const sections = document.querySelectorAll(".snap-board");
-    
-    if (snapScrollParent && sections.length > 0 && typeof IntersectionObserver !== 'undefined') {
-        const navObserverOptions = {
-            root: snapScrollParent,
-            rootMargin: "-20% 0px -60% 0px",
-            threshold: 0
-        };
-
-        const navObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const sectionId = entry.target.getAttribute("id");
-                    navLinks.forEach(link => {
-                        link.classList.remove("active");
-                        if (link.getAttribute("href") === `#${sectionId}`) {
-                            link.classList.add("active");
-                        }
-                    });
-                }
-            });
-        }, navObserverOptions);
-
-        sections.forEach(section => {
-            navObserver.observe(section);
-        });
-    }
-
-    console.log("%c FELIPE ANDRADE // SYSTEM CORE LOADED AND CONNECTED ", "background: #000; color: #00f0ff; font-size: 14px; font-weight: 800; padding: 5px; border: 1px solid #00f0ff;");
+    console.log("%c FELIPE ANDRADE // BRUTALIST CORE SYS CONNECTED ", "background: #000; color: #00f0ff; font-size: 14px; font-weight: 800; padding: 5px; border: 1px solid #00f0ff;");
 
 });
