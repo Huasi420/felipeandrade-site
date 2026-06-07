@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (loaderScreen && !loaderScreen.classList.contains("loaded")) {
             console.warn("Loader safety bypass triggered.");
             loaderScreen.classList.add("loaded");
+            document.body.classList.remove("loading-active");
             setTimeout(() => { loaderScreen.style.display = "none"; }, 1000);
         }
     }, 3500);
@@ -50,6 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 // Slice reveal
                 if (loaderScreen) {
                     loaderScreen.classList.add("loaded");
+                    document.body.classList.remove("loading-active");
                     clearTimeout(safetyTimeout);
                     // Remove from DOM interaction path after animations finish
                     setTimeout(() => {
@@ -397,7 +399,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const navLinks = document.querySelectorAll(".nav-link");
     const sections = document.querySelectorAll(".snap-board");
     
-    if (snapScrollParent && sections.length > 0) {
+    if (snapScrollParent && sections.length > 0 && typeof IntersectionObserver !== 'undefined') {
         const navObserverOptions = {
             root: snapScrollParent,
             rootMargin: "-20% 0px -60% 0px",

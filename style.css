@@ -39,6 +39,16 @@ html, body {
     -webkit-font-smoothing: antialiased;
 }
 
+/* Scroll-lock during loading phase */
+body.loading-active {
+    overflow: hidden !important;
+    height: 100vh !important;
+}
+body.loading-active .snap-scroll-parent {
+    overflow-y: hidden !important;
+    height: 100vh !important;
+}
+
 /* Scrollbar styling */
 ::-webkit-scrollbar {
     width: 5px;
@@ -172,17 +182,26 @@ html, body {
     margin-bottom: 2.5rem;
     display: flex;
     justify-content: center;
+    align-items: center;
+    width: 100%;
+    overflow: hidden;
+    height: 130px;
+    position: relative;
 }
 
 .ascii-wrapper {
     position: relative;
-    display: inline-block;
-    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: max-content;
+    max-width: none;
     padding: 10px 0;
+    transform-origin: center center;
 }
 
 .ascii-logo {
-    font-size: min(0.8vw, 8px);
+    font-size: 8px; /* Stable fixed font-size to prevent browser minimum font-size clamp breaking it */
     line-height: 1.1;
     color: var(--text-primary);
     text-shadow: 0 0 12px rgba(0, 240, 255, 0.4);
@@ -192,6 +211,28 @@ html, body {
     white-space: pre;
     animation: reveal-down 2.5s linear forwards;
     clip-path: inset(0 0 100% 0); /* starts fully clipped */
+}
+
+/* Scaling to fit mobile screens perfectly without causing scrollbar overflow */
+@media (max-width: 900px) {
+    .ascii-wrapper {
+        transform: scale(0.8);
+    }
+}
+@media (max-width: 768px) {
+    .ascii-wrapper {
+        transform: scale(0.65);
+    }
+}
+@media (max-width: 500px) {
+    .ascii-wrapper {
+        transform: scale(0.48);
+    }
+}
+@media (max-width: 380px) {
+    .ascii-wrapper {
+        transform: scale(0.4);
+    }
 }
 
 /* Scanning laser line */
