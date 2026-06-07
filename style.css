@@ -28,13 +28,13 @@
 /* Core Reset */
 *, *::before, *::after {
     box-sizing: border-box;
-    cursor: none !important; /* Force custom cursor */
 }
 
 html, body {
     margin: 0;
     padding: 0;
-    width: 100vw;
+    width: 100%;
+    max-width: 100%;
     min-height: 100vh;
     background-color: var(--bg-color);
     color: var(--text-primary);
@@ -72,18 +72,19 @@ body.loading-active {
 .concrete-grid-bg {
     position: fixed;
     top: 0; left: 0;
-    width: 100vw; height: 100vh;
+    width: 100%; height: 100%;
     z-index: -2;
     background-color: #0b0b0d;
     background-image:
         /* Procedural lighting vignettes */
         radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.02) 0%, transparent 40%),
         radial-gradient(circle at 80% 80%, rgba(0, 0, 0, 0.4) 0%, transparent 60%),
+        /* Micro dot noise texture (GPU-accelerated, lag-free) */
+        repeating-radial-gradient(rgba(255, 255, 255, 0.005) 0px, rgba(255, 255, 255, 0.005) 1px, transparent 1px, transparent 2px),
         /* Grid Lines overlay */
         linear-gradient(to right, rgba(255, 255, 255, 0.022) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
-    background-size: auto, auto, 80px 80px, 80px 80px;
-    filter: url(#concrete-noise); /* Applies fractal noise to background */
+    background-size: auto, auto, 4px 4px, 80px 80px, 80px 80px;
     pointer-events: none;
 }
 
@@ -108,8 +109,8 @@ body.loading-active {
 .wavy-glass {
     position: relative;
     background: var(--card-bg);
-    backdrop-filter: blur(25px) saturate(130%);
-    -webkit-backdrop-filter: blur(25px) saturate(130%);
+    backdrop-filter: blur(8px) saturate(120%);
+    -webkit-backdrop-filter: blur(8px) saturate(120%);
     border: 1px solid var(--card-border);
     border-radius: 30px 42px 28px 36px / 36px 28px 42px 30px;
     box-shadow: 
@@ -122,6 +123,9 @@ body.loading-active {
         box-shadow var(--transition-speed) ease,
         transform var(--transition-speed) ease;
     z-index: 1;
+    /* Force GPU rendering to prevent scroll lag on PC and mobile */
+    transform: translate3d(0, 0, 0);
+    will-change: transform, border-radius;
 }
 
 /* Glare highlight overlay */
@@ -147,42 +151,9 @@ body.loading-active {
     z-index: 2;
 }
 
-/* Idle floating animations */
-.left-sidebar { animation: float-sidebar 12s infinite alternate ease-in-out; }
-.header-section { animation: float-header 14s infinite alternate ease-in-out; }
-.featured-card { animation: float-featured 10s infinite alternate ease-in-out; }
-.gallery-section { animation: float-gallery 16s infinite alternate ease-in-out; }
-.timeline-card { animation: float-timeline 11s infinite alternate ease-in-out; }
-.lab-card { animation: float-lab 13s infinite alternate ease-in-out; }
-.stats-card { animation: float-stats 12s infinite alternate ease-in-out; }
-
-@keyframes float-sidebar {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-4px); }
-}
-@keyframes float-header {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-5px); }
-}
-@keyframes float-featured {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-6px); }
-}
-@keyframes float-gallery {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-3px); }
-}
-@keyframes float-timeline {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-4px); }
-}
-@keyframes float-lab {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-5px); }
-}
-@keyframes float-stats {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-4px); }
+/* Idle floating animations disabled for maximum performance */
+.left-sidebar, .header-section, .featured-card, .gallery-section, .timeline-card, .lab-card, .stats-card {
+    transform: translate3d(0, 0, 0);
 }
 
 /* Hover liquid border morph state */
@@ -469,88 +440,60 @@ p {
     letter-spacing: 0.5px;
 }
 
-.featured-viewport-container {
+.featured-image-container {
     height: 180px;
     position: relative;
-    border: 1px dashed var(--card-border);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
     background-color: rgba(0, 0, 0, 0.2);
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    perspective: 800px;
 }
-.vp-grid-floor {
-    position: absolute;
-    width: 200%; height: 200%;
-    top: 50%; left: -50%;
-    background-image: 
-        linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px), 
-        linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
-    background-size: 15px 15px;
-    transform: rotateX(75deg);
-    z-index: 1;
+.featured-image-container img {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.15));
+    transition: transform 0.5s ease;
 }
-.vp-axis {
-    position: absolute;
-    width: 40px; height: 40px;
-    bottom: 10px; left: 10px;
-    opacity: 0.5;
-    z-index: 5;
-}
-.axis-line {
-    position: absolute;
-    width: 100%; height: 1.5px;
-    top: 50%; left: 0;
-}
-.x-axis { background-color: #ff3b30; transform: rotate(0deg); }
-.y-axis { background-color: #4cd964; transform: rotate(90deg); }
-.z-axis { background-color: #007aff; transform: rotate(45deg); }
-
-.vp-overlay-instruct {
-    position: absolute;
-    top: 10px; right: 10px;
-    font-size: 0.5rem;
-    font-family: var(--font-mono);
-    color: var(--text-muted);
-    border: 1px dashed var(--card-border);
-    padding: 2px 5px;
-    background: rgba(0,0,0,0.3);
-    z-index: 10;
+.featured-image-container:hover img {
+    transform: scale(1.05);
 }
 
-.css-3d-cube {
-    width: 60px; height: 60px;
+.panel-image-viewport {
+    height: 250px;
     position: relative;
-    transform-style: preserve-3d;
-    transition: transform 0.1s ease-out;
-    transform: rotateX(-25deg) rotateY(45deg);
-    z-index: 2;
-}
-.cube-face {
-    position: absolute;
-    width: 60px; height: 60px;
-    border: 1px solid rgba(255,255,255,0.15);
-    background: rgba(255, 255, 255, 0.02);
-    color: var(--text-muted);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    background-color: rgba(0, 0, 0, 0.2);
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.65rem;
-    font-family: var(--font-mono);
-    backdrop-filter: blur(2px);
-    transition: border-color 0.3s;
 }
-.css-3d-cube:hover .cube-face {
-    border-color: var(--accent-cyan);
-    color: var(--accent-cyan);
+.panel-image-viewport img {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    filter: drop-shadow(0 0 15px rgba(0, 240, 255, 0.2));
 }
-.face-front  { transform: translateZ(30px); }
-.face-back   { transform: rotateY(180deg) translateZ(30px); }
-.face-left   { transform: rotateY(-90deg) translateZ(30px); }
-.face-right  { transform: rotateY(90deg) translateZ(30px); }
-.face-top    { transform: rotateX(90deg) translateZ(30px); }
-.face-bottom { transform: rotateX(-90deg) translateZ(30px); }
+
+.viewport-scan-line {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0),
+        rgba(255,255,255,0) 50%,
+        rgba(0, 240, 255, 0.04) 50%,
+        rgba(0, 240, 255, 0.04)
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 2;
+}
 
 .featured-viewport-footer {
     display: flex;
@@ -815,18 +758,14 @@ p {
     font-weight: 700;
 }
 
-.stats-canvas-container {
+.stats-svg-container {
     height: 80px;
     width: 100%;
     border: 1px dashed var(--card-border);
     background: rgba(0,0,0,0.15);
     border-radius: 8px;
     overflow: hidden;
-}
-#stats-canvas {
-    width: 100%;
-    height: 100%;
-    display: block;
+    padding: 5px;
 }
 
 /* ==========================================================================
@@ -968,8 +907,6 @@ p {
     border-radius: 0;
     border: none;
     background: var(--panel-bg);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
 }
 
 .detail-panel.open {
@@ -1316,58 +1253,7 @@ p {
 .loader-wrapper.loaded .top-slice { transform: translateY(-100%); }
 .loader-wrapper.loaded .bottom-slice { transform: translateY(100%); }
 
-/* ==========================================================================
-   FUTURISTIC CUSTOM CURSOR
-   ========================================================================== */
 
-.custom-cursor {
-    position: fixed;
-    top: 0; left: 0;
-    width: 0; height: 0;
-    pointer-events: none;
-    z-index: 99999;
-}
-.cursor-dot {
-    position: absolute;
-    width: 6px; height: 6px;
-    background-color: #ffffff;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    transition: width var(--transition-snappy) ease, height var(--transition-snappy) ease;
-}
-.cursor-ring {
-    position: absolute;
-    width: 32px; height: 32px;
-    border: 1.5px solid rgba(255, 255, 255, 0.25);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    transition: border-color var(--transition-speed) ease, width var(--transition-speed) cubic-bezier(0.16, 1, 0.3, 1), height var(--transition-speed) cubic-bezier(0.16, 1, 0.3, 1);
-}
-.cursor-label {
-    position: absolute;
-    top: 15px; left: 15px;
-    font-family: var(--font-mono);
-    font-size: 0.55rem;
-    color: var(--accent-cyan);
-    background: rgba(0,0,0,0.85);
-    border: 1px solid var(--card-border);
-    padding: 2px 6px;
-    border-radius: 4px;
-    opacity: 0.8;
-}
-
-.custom-cursor.active .cursor-ring {
-    width: 48px; height: 48px;
-    border-color: var(--accent-cyan);
-    background-color: rgba(0, 240, 255, 0.05);
-    box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
-}
-.custom-cursor.active .cursor-dot {
-    width: 2px; height: 2px;
-    background-color: var(--accent-cyan);
-}
 
 /* ==========================================================================
    RESPONSIVE DESIGN & MOBILE AR HOLOGRAM EXPERIENCE
@@ -1403,32 +1289,83 @@ p {
         grid-gap: 24px;
         margin-top: 10px;
     }
+    
+    /* Layout reordering for clean mobile experience */
+    .header-section { 
+        grid-column: 1; 
+        grid-row: auto; 
+        flex-direction: column; 
+        gap: 20px; 
+        align-items: flex-start; 
+        order: 1;
+    }
+    .header-telemetry-side { border-left: none; padding-left: 0; width: 100%; }
+    
     .left-sidebar {
         grid-column: 1;
         grid-row: auto;
         position: relative;
         height: auto;
         top: 0;
+        order: 2;
+        padding: 20px 15px !important;
     }
-    .header-section { grid-column: 1; grid-row: auto; flex-direction: column; gap: 20px; align-items: flex-start; }
-    .header-telemetry-side { border-left: none; padding-left: 0; width: 100%; }
-    .featured-card { grid-column: 1; grid-row: auto; }
-    .gallery-section { grid-column: 1; grid-row: auto; }
-    .timeline-card { grid-column: 1; grid-row: auto; }
-    .lab-card { grid-column: 1; grid-row: auto; }
-    .stats-card { grid-column: 1; grid-row: auto; }
+    
+    /* Mobile compact header logo and nav menu */
+    .sidebar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--card-border);
+        padding-bottom: 12px;
+    }
+    .sidebar-telemetry, .sidebar-copyright {
+        display: none !important;
+    }
+    .sidebar-nav {
+        flex-direction: row !important;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px !important;
+        margin: 12px 0 0 0 !important;
+    }
+    .nav-item {
+        padding: 6px 12px;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid var(--card-border);
+        border-radius: 50px;
+        font-size: 0.65rem !important;
+        gap: 4px !important;
+    }
+    .nav-item.active {
+        border-color: var(--accent-cyan);
+        background: rgba(0, 240, 255, 0.05);
+        color: var(--accent-cyan);
+    }
+    .nav-arrow {
+        display: none !important;
+    }
+    
+    .featured-card { grid-column: 1; grid-row: auto; order: 3; }
+    .gallery-section { grid-column: 1; grid-row: auto; order: 4; }
+    .timeline-card { grid-column: 1; grid-row: auto; order: 5; }
+    .lab-card { grid-column: 1; grid-row: auto; order: 6; }
+    .stats-card { grid-column: 1; grid-row: auto; order: 7; }
+    
     .footer-connect-section { 
-        grid-column: 1; grid-row: auto; 
+        grid-column: 1; 
+        grid-row: auto; 
         grid-template-columns: 1fr; 
         gap: 30px; 
+        order: 8;
     }
 }
 
 /* MOBILE AR HOLOGRAM STYLING (Viewport width <= 768px) */
 @media (max-width: 768px) {
     .concrete-grid-bg {
-        /* Enable fixed parallax scrolling look by setting attachment */
-        background-attachment: fixed;
+        /* Disable fixed background-attachment to solve mobile repainting scroll lag */
+        background-attachment: scroll !important;
     }
 
     /* Remove glass panel card backgrounds to let layout float transparently directly on concrete */

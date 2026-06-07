@@ -14,20 +14,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&family=Space+Mono:wght@400;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="style.css?v=1.6">
+    <link rel="stylesheet" href="style.css?v=1.7">
 </head>
 <body class="glassy-theme loading-active">
 
-    <!-- Procedural Concrete Noise SVG Filter -->
-    <svg style="position: absolute; width: 0; height: 0;" width="0" height="0">
-        <defs>
-            <filter id="concrete-noise">
-                <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="4" stitchTiles="stitch" result="noise" />
-                <feColorMatrix type="matrix" values="0 0 0 0 0.1   0 0 0 0 0.1   0 0 0 0 0.1   0 0 0 0.15 0" />
-                <feBlend mode="multiply" in="SourceGraphic" in2="noise" />
-            </filter>
-        </defs>
-    </svg>
+
 
     <!-- INTRO LOADING SCREEN (Slices open horizontally, with character reveal laser sweep) -->
     <div id="loader-screen" class="loader-wrapper">
@@ -63,12 +54,7 @@
         </div>
     </div>
 
-    <!-- Custom Futuristic Cursor -->
-    <div class="custom-cursor" id="custom-cursor">
-        <div class="cursor-dot"></div>
-        <div class="cursor-ring"></div>
-        <div class="cursor-label" id="cursor-label">SYS_IDLE</div>
-    </div>
+
 
     <!-- Procedural Concrete & Grid Lines Background -->
     <div class="concrete-grid-bg">
@@ -200,29 +186,13 @@
                 <p class="subtitle" id="featured-subtitle">PORTABLE MODULAR GRINDER SYSTEM</p>
             </div>
 
-            <!-- Draggable Interactive Viewport -->
-            <div class="featured-viewport-container" id="3d-container">
-                <div class="vp-grid-floor"></div>
-                <div class="vp-axis">
-                    <span class="axis-line x-axis"></span>
-                    <span class="axis-line y-axis"></span>
-                    <span class="axis-line z-axis"></span>
-                </div>
-                <div class="css-3d-cube" id="cube-3d">
-                    <div class="cube-face face-front">01</div>
-                    <div class="cube-face face-back">02</div>
-                    <div class="cube-face face-left">03</div>
-                    <div class="cube-face face-right">04</div>
-                    <div class="cube-face face-top">05</div>
-                    <div class="cube-face face-bottom">06</div>
-                </div>
-                <div class="vp-overlay-instruct">[ DRAG HUD TO ROTATE ]</div>
+            <!-- Featured Image Preview Viewport -->
+            <div class="featured-image-container">
+                <div class="viewport-scan-line"></div>
+                <img id="featured-img" src="assets/molebot.png" alt="Featured Project">
             </div>
 
             <div class="featured-viewport-footer">
-                <div class="viewport-telemetry-stats" id="vp-rot-display">
-                    ROT: X: -25° / Y: 45°
-                </div>
                 <div class="featured-specs-row">
                     <div class="spec-widget">
                         <span class="tag">STATUS:</span>
@@ -268,6 +238,7 @@
                      data-subtitle="PORTABLE MODULAR GRINDER SYSTEM" 
                      data-status="PRODUCTION" 
                      data-iterations="23"
+                     data-img="assets/molebot.png"
                      data-panel="panel-molebots">
                     <div class="card-banner-img" style="background-image: url('assets/molebot.png');">
                         <div class="card-img-hud">[ FDM_PRINTED ]</div>
@@ -285,6 +256,7 @@
                      data-subtitle="3D RIGGED CINEMATIC PROP" 
                      data-status="RENDERING" 
                      data-iterations="09"
+                     data-img="assets/mech.png"
                      data-panel="panel-sculpt">
                     <div class="card-banner-img" style="background-image: url('assets/mech.png');">
                         <div class="card-img-hud">[ SUBDIV_MESH ]</div>
@@ -302,6 +274,7 @@
                      data-subtitle="COMPUTATIONAL FASHION DROP" 
                      data-status="EVALUATING" 
                      data-iterations="15"
+                     data-img="assets/apparel.png"
                      data-panel="panel-ai">
                     <div class="card-banner-img" style="background-image: url('assets/apparel.png');">
                         <div class="card-img-hud">[ MENTIRAMENTIRA ]</div>
@@ -319,6 +292,7 @@
                      data-subtitle="CINEMATIC HARD-SURFACE SCENE" 
                      data-status="COMPILING" 
                      data-iterations="12"
+                     data-img="assets/mech.png"
                      data-panel="panel-sculpt">
                     <div class="card-banner-img" style="background-image: url('assets/mech.png'); filter: hue-rotate(90deg);">
                         <div class="card-img-hud">[ VFX_COMP ]</div>
@@ -336,6 +310,7 @@
                      data-subtitle="POINT CLOUD PHOTOGRAMMETRY" 
                      data-status="PROCESSING" 
                      data-iterations="04"
+                     data-img="assets/molebot.png"
                      data-panel="panel-sculpt">
                     <div class="card-banner-img" style="background-image: url('assets/molebot.png'); filter: invert(1) grayscale(1);">
                         <div class="card-img-hud">[ 3D_SCAN ]</div>
@@ -353,6 +328,7 @@
                      data-subtitle="HEADLESS DEPLOYMENT AND BRAND APPAREL" 
                      data-status="ONLINE" 
                      data-iterations="02"
+                     data-img="assets/apparel.png"
                      data-panel="panel-ai">
                     <div class="card-banner-img" style="background-image: url('assets/apparel.png'); filter: saturate(0.2);">
                         <div class="card-img-hud">[ E-COMMERCE ]</div>
@@ -444,9 +420,12 @@
                         <span class="val cyan-text">250K+</span>
                     </div>
                 </div>
-                <!-- Dynamic 3D wireframe plot Canvas -->
-                <div class="stats-canvas-container">
-                    <canvas id="stats-canvas"></canvas>
+                <!-- Static SVG Terrain Telemetry Wireframe -->
+                <div class="stats-svg-container">
+                    <svg viewBox="0 0 100 40" width="100%" height="100%">
+                        <path d="M 0,35 Q 10,25 20,32 T 40,20 T 60,30 T 80,15 T 100,28 L 100,40 L 0,40 Z" fill="rgba(0, 240, 255, 0.04)" stroke="var(--accent-cyan)" stroke-width="0.75" />
+                        <path d="M 0,38 Q 15,30 30,35 T 60,25 T 90,32 L 100,38" fill="none" stroke="var(--accent-purple)" stroke-width="0.5" stroke-dasharray="2,2" />
+                    </svg>
                 </div>
             </div>
         </section>
@@ -554,26 +533,9 @@
 
             <div class="panel-grid">
                 <div class="panel-left-content">
-                    <!-- 3D CSS Wireframe cube simulation -->
-                    <div class="vp-viewport-container" id="3d-container-sculpt">
-                        <div class="vp-grid-floor"></div>
-                        <div class="vp-axis">
-                            <span class="axis-line x-axis"></span>
-                            <span class="axis-line y-axis"></span>
-                            <span class="axis-line z-axis"></span>
-                        </div>
-                        <div class="css-3d-cube" id="cube-3d-sculpt">
-                            <div class="cube-face face-front">01</div>
-                            <div class="cube-face face-back">02</div>
-                            <div class="cube-face face-left">03</div>
-                            <div class="cube-face face-right">04</div>
-                            <div class="cube-face face-top">05</div>
-                            <div class="cube-face face-bottom">06</div>
-                        </div>
-                        <div class="vp-overlay-instruct">[ DRAG TO ROTATE 3D HUD ]</div>
-                    </div>
-                    <div class="viewport-telemetry-stats" id="vp-rot-display-sculpt">
-                        ROT: X: 0° / Y: 0°
+                    <!-- Large Viewport Image Showcase -->
+                    <div class="panel-image-viewport">
+                        <img src="assets/mech.png" alt="Viewport Model">
                     </div>
                 </div>
 
@@ -689,6 +651,6 @@
         </div>
     </div>
 
-    <script src="app.js?v=1.6"></script>
+    <script src="app.js?v=1.7"></script>
 </body>
 </html>
